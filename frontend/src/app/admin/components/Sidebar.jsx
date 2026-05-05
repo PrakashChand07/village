@@ -1,0 +1,50 @@
+import { NavLink } from 'react-router';
+import { useAuth } from '../context/AuthContext';
+import { 
+  LayoutDashboard, 
+  Briefcase, 
+  Award, 
+  GraduationCap, 
+  Home, 
+  Layers,
+  LogOut 
+} from 'lucide-react';
+
+export default function Sidebar() {
+  const { logout } = useAuth();
+
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-header">
+        <div className="sidebar-title">Admin Panel</div>
+      </div>
+      
+      <nav className="nav-links">
+        <NavLink to="/admin" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} end>
+          <LayoutDashboard className="nav-icon" /> Dashboard
+        </NavLink>
+        <NavLink to="/admin/jobs" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Briefcase className="nav-icon" /> Government Jobs
+        </NavLink>
+        <NavLink to="/admin/results" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Award className="nav-icon" /> Results
+        </NavLink>
+        <NavLink to="/admin/scholarships" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <GraduationCap className="nav-icon" /> Scholarships
+        </NavLink>
+        <NavLink to="/admin/schemes" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Home className="nav-icon" /> Village Schemes
+        </NavLink>
+        <NavLink to="/admin/categories" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Layers className="nav-icon" /> Categories
+        </NavLink>
+      </nav>
+
+      <div className="sidebar-footer">
+        <button onClick={logout} className="logout-btn flex items-center justify-center gap-2">
+          <LogOut size={18} /> Logout
+        </button>
+      </div>
+    </aside>
+  );
+}
