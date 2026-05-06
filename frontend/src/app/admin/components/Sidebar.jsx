@@ -7,6 +7,8 @@ import {
   GraduationCap, 
   Home, 
   Layers,
+  Newspaper,
+  Mail,
   LogOut 
 } from 'lucide-react';
 
@@ -35,8 +37,14 @@ export default function Sidebar() {
         <NavLink to="/admin/schemes" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <Home className="nav-icon" /> Village Schemes
         </NavLink>
+        <NavLink to="/admin/news" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Newspaper className="nav-icon" /> News
+        </NavLink>
         <NavLink to="/admin/categories" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <Layers className="nav-icon" /> Categories
+        </NavLink>
+        <NavLink to="/admin/contacts" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Mail className="nav-icon" /> Contact Messages
         </NavLink>
       </nav>
 

@@ -1,118 +1,105 @@
-import { Newspaper, Clock, TrendingUp, Tag } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { fetchNews, fetchCategories } from "../../services/api";
+import { Newspaper, ExternalLink, Loader2, SearchX, Search } from "lucide-react";
+
+const formatUrl = (url: string) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+};
 
 export function NewsPage() {
-  const news = [
-    {
-      title: "Bihar Government Announces New Scholarship Scheme for Girl Students",
-      category: "Education",
-      date: "1 May 2026",
-      time: "2 hours ago",
-      image: "📚",
-      excerpt: "Chief Minister announces ₹50,000 scholarship for meritorious girl students pursuing higher education...",
-      isTrending: true,
-    },
-    {
-      title: "Railway Recruitment Board Releases 60,000 New Vacancies",
-      category: "Jobs",
-      date: "1 May 2026",
-      time: "5 hours ago",
-      image: "🚂",
-      excerpt: "RRB announces massive recruitment drive for various posts across India. Application deadline is May 25...",
-      isTrending: true,
-    },
-    {
-      title: "PM Kisan 18th Installment to be Released on May 15",
-      category: "Agriculture",
-      date: "30 Apr 2026",
-      time: "1 day ago",
-      image: "🌾",
-      excerpt: "Government confirms transfer of ₹2000 to farmer accounts. Beneficiaries advised to verify KYC...",
-      isTrending: false,
-    },
-    {
-      title: "NEET UG 2026 Result Date Announced by NTA",
-      category: "Results",
-      date: "30 Apr 2026",
-      time: "1 day ago",
-      image: "🎓",
-      excerpt: "National Testing Agency to declare NEET UG results on May 5. Students can check scores on official website...",
-      isTrending: false,
-    },
-    {
-      title: "Bihar Board 10th Result Expected This Week",
-      category: "Results",
-      date: "29 Apr 2026",
-      time: "2 days ago",
-      image: "📋",
-      excerpt: "BSEB likely to announce Class 10 results by May 3. Over 17 lakh students appeared for the examination...",
-      isTrending: true,
-    },
-    {
-      title: "New ITI Admission Process Starts from May 10",
-      category: "Education",
-      date: "29 Apr 2026",
-      time: "2 days ago",
-      image: "🏫",
-      excerpt: "Online application for ITI courses begins. Students can apply through official portal with required documents...",
-      isTrending: false,
-    },
-    {
-      title: "Ayushman Card Registration Drive in Rural Bihar",
-      category: "Health",
-      date: "28 Apr 2026",
-      time: "3 days ago",
-      image: "💳",
-      excerpt: "Special camps organized in villages for Ayushman Bharat card registration. Free health checkup included...",
-      isTrending: false,
-    },
-    {
-      title: "SSC Announces CGL Tier 2 Exam Dates",
-      category: "Jobs",
-      date: "28 Apr 2026",
-      time: "3 days ago",
-      image: "📝",
-      excerpt: "Staff Selection Commission releases exam calendar for CGL Tier 2. Admit cards to be issued 15 days before exam...",
-      isTrending: false,
-    },
-    {
-      title: "Minimum Support Price Increased for Paddy Crops",
-      category: "Agriculture",
-      date: "27 Apr 2026",
-      time: "4 days ago",
-      image: "🌱",
-      excerpt: "Government raises MSP by 7% for paddy. Farmers to get ₹2,183 per quintal for common variety...",
-      isTrending: false,
-    },
-  ];
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [news, setNews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [categories, setCategories] = useState<string[]>(["All"]);
 
-  const categories = ["All", "Jobs", "Education", "Agriculture", "Results", "Health"];
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const response = await fetchNews({
+          page,
+          category: selectedCategory === "All" ? "" : selectedCategory,
+          search: searchQuery,
+        });
+        if (response.success) {
+          setNews(response.data);
+          setTotalPages(response.pages || 1);
+        }
+      } catch (error) {
+        console.error("Failed to fetch news", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    const timer = setTimeout(load, 300);
+    return () => clearTimeout(timer);
+  }, [page, selectedCategory, searchQuery]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const response = await fetchCategories("news");
+        if (response.success) {
+          const names = response.data.map((c: any) => c.name);
+          setCategories(["All", ...names]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+      }
+    };
+    loadCategories();
+  }, []);
+
+  useEffect(() => { setPage(1); }, [selectedCategory, searchQuery]);
 
   return (
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-3xl p-8 mb-8">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-3xl p-8 mb-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
               <Newspaper className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold">Latest News & Updates</h1>
-              <p className="text-white/90 mt-2">Stay updated with rural development & government news</p>
+              <h1 className="text-4xl font-bold">Latest News</h1>
+              <p className="text-white/90 mt-2">Stay updated with the latest news & updates</p>
             </div>
           </div>
         </div>
 
-        {/* Category Filters */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-            <Tag className="w-5 h-5 text-gray-600" />
-            <div className="flex gap-2 flex-wrap">
+        {/* Search & Filters */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search news..."
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-100 rounded-xl focus:border-blue-500 focus:outline-none transition-all"
+              />
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg p-6 overflow-x-auto">
+            <div className="flex gap-2 min-w-max pb-2">
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => alert(`Filtering by: ${category}`)}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-red-500 hover:text-white transition-all"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${selectedCategory === category
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
                 >
                   {category}
                 </button>
@@ -121,58 +108,113 @@ export function NewsPage() {
           </div>
         </div>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {news.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all p-6 border border-gray-100 cursor-pointer group"
-              onClick={() => alert(`Reading: ${item.title}`)}
-            >
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="text-6xl">{item.image}</div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full">
-                      {item.category}
-                    </span>
-                    {item.isTrending && (
-                      <span className="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full flex items-center gap-1">
-                        <TrendingUp className="w-3 h-3" />
-                        Trending
-                      </span>
-                    )}
-                  </div>
+        {/* Loading */}
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-24 gap-4">
+            <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+            <p className="text-gray-500 text-lg font-medium">Loading news...</p>
+          </div>
+        )}
 
-                  <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">{item.excerpt}</p>
-
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {item.time}
-                    </div>
-                    <span>•</span>
-                    <span>{item.date}</span>
-                  </div>
-                </div>
-              </div>
+        {/* Empty State */}
+        {!loading && news.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-24 gap-4">
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+              <SearchX className="w-10 h-10 text-gray-400" />
             </div>
-          ))}
-        </div>
+            <h3 className="text-xl font-bold text-gray-700">No News Found</h3>
+            <p className="text-gray-500 text-center max-w-sm">
+              {searchQuery ? `No results found for "${searchQuery}"` : "No news available right now. Check back soon."}
+            </p>
+          </div>
+        )}
 
-        {/* Load More */}
-        <div className="text-center mt-8">
-          <button
-            onClick={() => alert("Loading more news...")}
-            className="bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-2xl hover:shadow-lg transition-all"
-          >
-            Load More News
-          </button>
-        </div>
+        {/* News Table */}
+        {!loading && news.length > 0 && (
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-gray-50/50 border-b border-gray-100">
+                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">News Title</th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Category</th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Source</th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Date</th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {news.map((item, index) => (
+                    <tr
+                      key={item._id || index}
+                      className="hover:bg-blue-50/50 transition-colors group cursor-pointer"
+                      onClick={() => navigate(`/news/${item._id}`)}
+                    >
+                      <td className="px-4 sm:px-6 py-4 sm:py-5 max-w-xs">
+                        <div className="flex flex-col gap-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{item.title}</span>
+                            {item.isNewPost && (
+                              <span className="flex-shrink-0 bg-[#F4511E] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">NEW</span>
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-500 line-clamp-1">{item.content}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 sm:px-6 py-4 sm:py-5">
+                        <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded-md text-xs font-medium">{item.category}</span>
+                      </td>
+                      <td className="px-4 sm:px-6 py-4 sm:py-5 text-sm text-gray-600">{item.source || "—"}</td>
+                      <td className="px-4 sm:px-6 py-4 sm:py-5 text-sm text-gray-500 whitespace-nowrap">{item.date}</td>
+                      <td className="px-4 sm:px-6 py-4 sm:py-5">
+                        <div className="flex justify-center">
+                            <button
+                              onClick={() => window.open(`/news/${item._id}`)}
+                              className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:shadow-lg transition-all flex items-center gap-2 whitespace-nowrap"
+                            >
+                              Read More <ExternalLink className="w-3 h-3" />
+                            </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {!loading && news.length > 0 && (
+          <div className="flex justify-center items-center gap-2 mt-12 pb-8">
+            <button
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-4 py-2 bg-white border border-gray-200 rounded-xl disabled:opacity-50 hover:bg-gray-50 transition-all font-bold text-gray-600"
+            >
+              Prev
+            </button>
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i + 1}
+                onClick={() => setPage(i + 1)}
+                className={`w-10 h-10 rounded-xl font-bold transition-all ${page === i + 1
+                    ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                    : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                  }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="px-4 py-2 bg-white border border-gray-200 rounded-xl disabled:opacity-50 hover:bg-gray-50 transition-all font-bold text-gray-600"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -65,5 +65,16 @@ export const getAdminCategories = (params : any) => api.get('/categories', { par
 export const createAdminCategory = (data : any) => api.post('/categories', data);
 export const deleteAdminCategory = (id : any) => api.delete(`/categories/${id}`);
 
+// News
+export const getAdminNews = (params : any) => api.get('/news/admin/all', { params });
+export const createNews = (data : any) => api.post('/news/admin', data);
+export const updateNews = (id : any, data : any) => api.put(`/news/admin/${id}`, data);
+export const deleteNews = (id : any) => api.delete(`/news/admin/${id}`);
+export const toggleNews = (id : any) => api.patch(`/news/admin/${id}/toggle`);
+
+// Contacts
+export const getAdminContacts = (params : any) => api.get('/contacts/admin/all', { params });
+export const markContactAsRead = (id : any) => api.patch(`/contacts/admin/${id}/read`);
+export const deleteAdminContact = (id : any) => api.delete(`/contacts/admin/${id}`);
 
 export default api;

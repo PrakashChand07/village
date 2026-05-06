@@ -10,6 +10,7 @@ import { StudyMaterialPage } from "./pages/StudyMaterialPage";
 import { FarmingHelpPage } from "./pages/FarmingHelpPage";
 import { VillageSchemes } from "./pages/VillageSchemes";
 import { NewsPage } from "./pages/NewsPage";
+import { NewsDetailPage } from "./pages/NewsDetailPage";
 import { ContactPage } from "./pages/ContactPage";
 import AdminApp from "./admin/AdminApp";
 
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="/farming-help" element={<FarmingHelpPage />} />
               <Route path="/village-schemes" element={<VillageSchemes />} />
               <Route path="/news" element={<NewsPage />} />
+              <Route path="/news/:id" element={<NewsDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
             </Routes>
             <Footer />

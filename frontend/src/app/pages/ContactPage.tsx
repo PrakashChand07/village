@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { useState } from "react";
+import { submitContact } from "../../services/api";
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,10 +11,36 @@ export function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you ${formData.name}! Your message has been sent. We'll get back to you soon.`);
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setStatus(null);
+
+    // Validation: Name, Message are required, and either Email or Phone must be present
+    if (!formData.name || !formData.message || (!formData.email && !formData.phone)) {
+      setStatus({
+        type: "error",
+        message: "Please provide your Name, Message, and at least one contact method (Email or Phone).",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const response = await submitContact(formData);
+      if (response.success) {
+        setStatus({ type: "success", message: "Message sent successfully! We will get back to you soon." });
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        setStatus({ type: "error", message: response.message || "Something went wrong. Please try again." });
+      }
+    } catch (error) {
+      setStatus({ type: "error", message: "Failed to send message. Please try again later." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -150,11 +177,24 @@ export function ContactPage() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-6 py-4 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                disabled={submitting}
+                className="w-full bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-6 py-4 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 <Send className="w-5 h-5" />
-                Send Message
+                {submitting ? "Sending..." : "Send Message"}
               </button>
+
+              {status && (
+                <div
+                  className={`mt-4 p-4 rounded-xl text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-300 ${
+                    status.type === "success"
+                      ? "bg-green-50 text-green-700 border border-green-200"
+                      : "bg-red-50 text-red-700 border border-red-200"
+                  }`}
+                >
+                  {status.message}
+                </div>
+              )}
             </form>
           </div>
 

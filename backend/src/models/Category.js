@@ -9,7 +9,7 @@ const categorySchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['job', 'result', 'scholarship', 'scheme'],
+    enum: ['job', 'result', 'scholarship', 'scheme', 'news'],
     default: 'job'
   }
 }, {

@@ -10,6 +10,8 @@ const resultRoutes = require('./routes/results.routes');
 const scholarshipRoutes = require('./routes/scholarships.routes');
 const schemeRoutes = require('./routes/schemes.routes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const newsRoutes = require('./routes/news.routes');
+const contactRoutes = require('./routes/contact.routes');
 
 // Connect to MongoDB
 connectDB();
@@ -36,6 +38,8 @@ app.use('/api/results', resultRoutes);
 app.use('/api/scholarships', scholarshipRoutes);
 app.use('/api/schemes', schemeRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/news', newsRoutes);
+app.use('/api/contacts', contactRoutes);
 
 // 404 handler
 app.use((req, res) => {

@@ -109,6 +109,7 @@ export default function Categories() {
                   <option value="result">Result</option>
                   <option value="scholarship">Scholarship</option>
                   <option value="scheme">Scheme</option>
+                  <option value="news">News</option>
                 </select>
               </div>
               <button type="submit" className="btn-primary" style={{ marginTop: '1.5rem' }} disabled={saving}>

@@ -1,6 +1,7 @@
-import { Search, TrendingUp, Zap, Shield, Calendar, FileText, Briefcase, GraduationCap, Newspaper, BookOpen } from "lucide-react";
+import { Search, TrendingUp, Zap, Shield, Calendar, FileText, Briefcase, GraduationCap, Newspaper, BookOpen, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchNews } from "../../services/api";
 
 export function HeroSection() {
   const navigate = useNavigate();
@@ -13,13 +14,22 @@ export function HeroSection() {
     }
   };
 
-  const updates = [
-    { title: "PM Kisan 18वीं किस्त जारी - अब चेक करें", date: "1 May 2026", isNew: true },
-    { title: "Bihar Police Constable Recruitment 2026", date: "30 Apr 2026", isNew: true },
-    { title: "Railway Group D Admit Card Released", date: "29 Apr 2026", isNew: false },
-    { title: "Mukhyamantri Balika Protsahan Yojana", date: "28 Apr 2026", isNew: false },
-    { title: "SSC CGL 2026 Notification Out", date: "27 Apr 2026", isNew: false },
-  ];
+  const [updates, setUpdates] = useState<any[]>([]);
+  const [updatesLoading, setUpdatesLoading] = useState(true);
+
+  useEffect(() => {
+    const loadNews = async () => {
+      try {
+        const response = await fetchNews({ limit: 5, page: 1 });
+        if (response.success) setUpdates(response.data || []);
+      } catch {
+        setUpdates([]);
+      } finally {
+        setUpdatesLoading(false);
+      }
+    };
+    loadNews();
+  }, []);
 
   const quickAccess = [
     { icon: FileText, label: "Results", color: "from-blue-500 to-blue-600", path: "/results" },
@@ -117,24 +127,33 @@ export function HeroSection() {
               </div>
 
               <div className="space-y-3">
-                {updates.map((update, index) => (
-                  <div
-                    key={index}
-                    className="p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100"
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <p className="text-sm text-gray-800 line-clamp-2">{update.title}</p>
-                        <p className="text-xs text-gray-500 mt-1">{update.date}</p>
-                      </div>
-                      {update.isNew && (
-                        <span className="bg-[#F4511E] text-white text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                          NEW
-                        </span>
-                      )}
-                    </div>
+                {updatesLoading ? (
+                  <div className="flex justify-center py-8">
+                    <Loader2 className="w-6 h-6 text-[#6DBE45] animate-spin" />
                   </div>
-                ))}
+                ) : updates.length === 0 ? (
+                  <p className="text-center text-gray-400 text-sm py-6">No updates available</p>
+                ) : (
+                  updates.map((update, index) => (
+                    <div
+                      key={update._id || index}
+                      onClick={() => navigate(`/news/${update._id}`)}
+                      className="p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-800 line-clamp-2">{update.title}</p>
+                          <p className="text-xs text-gray-500 mt-1">{update.date}</p>
+                        </div>
+                        {update.isNewPost && (
+                          <span className="bg-[#F4511E] text-white text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                            NEW
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
 
               <button

@@ -9,6 +9,8 @@ import ResultsList from './pages/ResultsList';
 import ScholarshipsList from './pages/ScholarshipsList';
 import SchemesList from './pages/SchemesList';
 import Categories from './pages/Categories';
+import NewsList from './pages/NewsList';
+import ContactList from './pages/ContactList';
 import './admin.css';
 
 export default function AdminApp() {
@@ -28,7 +30,9 @@ export default function AdminApp() {
             <Route path="results" element={<ResultsList />} />
             <Route path="scholarships" element={<ScholarshipsList />} />
             <Route path="schemes" element={<SchemesList />} />
+            <Route path="news" element={<NewsList />} />
             <Route path="categories" element={<Categories />} />
+            <Route path="contacts" element={<ContactList />} />
           </Route>
         </Routes>
       </AuthProvider>
