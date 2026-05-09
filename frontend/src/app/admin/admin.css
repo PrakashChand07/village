@@ -325,11 +325,13 @@
   background: var(--white);
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .admin-root table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
 }
 
@@ -396,4 +398,48 @@
 .btn-icon.delete:hover {
   background: #FEE2E2;
   color: #DC2626;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar-header {
+    padding: 1rem;
+  }
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+  .nav-link {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    border-right: none !important;
+    border-bottom: 3px solid transparent;
+  }
+  .nav-link:hover, .nav-link.active {
+    border-right: none !important;
+    border-bottom: 3px solid var(--primary);
+  }
+  .main-content {
+    overflow-y: visible;
+  }
+  .page-content {
+    padding: 1rem;
+  }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }

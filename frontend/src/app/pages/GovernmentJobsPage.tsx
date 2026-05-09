@@ -135,18 +135,19 @@ export function GovernmentJobsPage() {
         {!loading && jobs.length > 0 && (
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
+              <table className="w-full text-left border-collapse block md:table">
+                <thead className="hidden md:table-header-group">
                   <tr className="bg-gray-50/50 border-b border-gray-100">
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Job Details</th>
-                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Info</th>
+                    <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Organization / Info</th>
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="block md:table-row-group divide-y divide-transparent md:divide-gray-50 p-4 md:p-0 space-y-4 md:space-y-0 bg-gray-50 md:bg-transparent">
                   {jobs.map((job, index) => (
-                    <tr key={job._id || index} className="hover:bg-gray-50/50 transition-colors group">
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
+                    <tr key={job._id || index} className="block md:table-row bg-white rounded-2xl shadow-sm md:shadow-none p-4 md:p-0 hover:bg-gray-50/50 transition-colors group border border-gray-100 md:border-none">
+                      <td className="block md:table-cell px-2 py-2 md:px-6 md:py-5 border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Job Details</div>
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-gray-900 group-hover:text-[#2D7A1F] transition-colors">{job.title}</span>
@@ -162,20 +163,21 @@ export function GovernmentJobsPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-5 text-sm text-gray-600 font-medium">{job.organization}</td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
+                      <td className="block md:table-cell px-2 py-3 md:px-6 md:py-5 border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Organization & Dates</div>
                         <div className="flex flex-col gap-1">
-                          <span className="text-sm font-bold text-red-500">{job.lastDate}</span>
+                          <span className="text-sm text-gray-600 font-bold">{job.organization}</span>
+                          <span className="text-sm font-bold text-red-500">Deadline: {job.lastDate}</span>
                           <span className="text-[11px] text-gray-400 flex items-center gap-1"><MapPin className="w-3 h-3" /> {job.location}</span>
                         </div>
                       </td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
-                        <div className="flex justify-center">
+                      <td className="block md:table-cell px-2 py-4 md:px-6 md:py-5 text-center">
+                        <div className="flex justify-center md:justify-center">
                           <button
                             onClick={() => job.applyLink && window.open(formatUrl(job.applyLink), '_blank', 'noopener,noreferrer')}
-                            className="bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center gap-2 whitespace-nowrap"
+                            className="w-full md:w-auto bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-5 py-3 md:py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap"
                           >
-                            Apply <ExternalLink className="w-4 h-4" />
+                            Apply Now <ExternalLink className="w-4 h-4" />
                           </button>
                         </div>
                       </td>

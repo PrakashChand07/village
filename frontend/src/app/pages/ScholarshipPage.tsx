@@ -135,8 +135,8 @@ export function ScholarshipPage() {
         {!loading && scholarships.length > 0 && (
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
+              <table className="w-full text-left border-collapse block md:table">
+                <thead className="hidden md:table-header-group">
                   <tr className="bg-gray-50/50 border-b border-gray-100">
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Scholarship Details</th>
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider text-center">Eligibility</th>
@@ -144,10 +144,11 @@ export function ScholarshipPage() {
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="block md:table-row-group divide-y divide-transparent md:divide-gray-50 p-4 md:p-0 space-y-4 md:space-y-0 bg-gray-50 md:bg-transparent">
                   {scholarships.map((scholarship, index) => (
-                    <tr key={scholarship._id || index} className="hover:bg-gray-50/50 transition-colors group">
-                      <td className="px-6 py-5">
+                    <tr key={scholarship._id || index} className="block md:table-row bg-white rounded-2xl shadow-sm md:shadow-none p-4 md:p-0 hover:bg-gray-50/50 transition-colors group border border-gray-100 md:border-none">
+                      <td className="block md:table-cell px-2 py-2 md:px-6 md:py-5 border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Scholarship Details</div>
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">{scholarship.title}</span>
@@ -155,7 +156,7 @@ export function ScholarshipPage() {
                               <span className="bg-[#F4511E] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">NEW</span>
                             )}
                           </div>
-                          <div className="flex items-center gap-3 text-xs text-gray-500 mt-1">
+                          <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 mt-1">
                             <span className="bg-orange-50 text-orange-600 px-2 py-0.5 rounded-md font-medium">{scholarship.provider}</span>
                             <span className="text-red-500 font-medium">Deadline: {scholarship.deadline}</span>
                             <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded-md font-medium flex items-center gap-1">
@@ -164,19 +165,23 @@ export function ScholarshipPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5 text-sm text-gray-600 font-medium text-center">{scholarship.eligibility}</td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5 text-center">
+                      <td className="block md:table-cell px-2 py-3 md:px-6 md:py-5 text-sm text-gray-600 font-medium text-left md:text-center border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Eligibility</div>
+                        {scholarship.eligibility}
+                      </td>
+                      <td className="block md:table-cell px-2 py-3 md:px-6 md:py-5 text-left md:text-center border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Amount</div>
                         <span className="bg-green-50 text-green-700 px-4 py-1 rounded-full text-sm font-bold">
                           {scholarship.amount}
                         </span>
                       </td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
-                        <div className="flex justify-center">
+                      <td className="block md:table-cell px-2 py-4 md:px-6 md:py-5 text-center">
+                        <div className="flex justify-center md:justify-center">
                           <button
                             onClick={() => scholarship.applyLink && window.open(formatUrl(scholarship.applyLink), '_blank', 'noopener,noreferrer')}
-                            className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center gap-2 whitespace-nowrap"
+                            className="w-full md:w-auto bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 py-3 md:py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap"
                           >
-                            Apply <ExternalLink className="w-4 h-4" />
+                            Apply Now <ExternalLink className="w-4 h-4" />
                           </button>
                         </div>
                       </td>

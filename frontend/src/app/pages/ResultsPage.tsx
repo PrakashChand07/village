@@ -134,8 +134,8 @@ export function ResultsPage() {
         {!loading && results.length > 0 && (
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
+              <table className="w-full text-left border-collapse block md:table">
+                <thead className="hidden md:table-header-group">
                   <tr className="bg-gray-50/50 border-b border-gray-100">
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Exam Title</th>
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider">Organization</th>
@@ -143,10 +143,11 @@ export function ResultsPage() {
                     <th className="px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider text-center">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="block md:table-row-group divide-y divide-transparent md:divide-gray-50 p-4 md:p-0 space-y-4 md:space-y-0 bg-gray-50 md:bg-transparent">
                   {results.map((result, index) => (
-                    <tr key={result._id || index} className="hover:bg-gray-50/50 transition-colors group">
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
+                    <tr key={result._id || index} className="block md:table-row bg-white rounded-2xl shadow-sm md:shadow-none p-4 md:p-0 hover:bg-gray-50/50 transition-colors group border border-gray-100 md:border-none">
+                      <td className="block md:table-cell px-2 py-2 md:px-6 md:py-5 border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Exam Title</div>
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-gray-900 group-hover:text-purple-600 transition-colors">{result.title}</span>
@@ -160,8 +161,12 @@ export function ResultsPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5 text-sm text-gray-600 font-medium">{result.organization}</td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
+                      <td className="block md:table-cell px-2 py-3 md:px-6 md:py-5 text-sm text-gray-600 font-medium border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Organization</div>
+                        {result.organization}
+                      </td>
+                      <td className="block md:table-cell px-2 py-3 md:px-6 md:py-5 border-b border-gray-100 md:border-b-0">
+                        <div className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Status</div>
                         <span className={`text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-tight ${
                           result.status === "Declared"
                             ? "bg-green-100 text-green-700"
@@ -172,13 +177,13 @@ export function ResultsPage() {
                           {result.status}
                         </span>
                       </td>
-                      <td className="px-4 sm:px-6 py-4 sm:py-5">
-                        <div className="flex justify-center gap-2">
+                      <td className="block md:table-cell px-2 py-4 md:px-6 md:py-5 text-center">
+                        <div className="flex justify-center md:justify-center gap-2">
                           <button
                             onClick={() => result.resultLink && window.open(formatUrl(result.resultLink), '_blank', 'noopener,noreferrer')}
-                            className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:shadow-lg transition-all flex items-center gap-2 whitespace-nowrap"
+                            className="w-full md:w-auto bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-3 md:py-2 rounded-xl text-xs font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap"
                           >
-                            Check <ExternalLink className="w-3 h-3" />
+                            Check Now <ExternalLink className="w-3 h-3" />
                           </button>
                         </div>
                       </td>
