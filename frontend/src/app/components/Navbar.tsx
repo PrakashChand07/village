@@ -1,18 +1,23 @@
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, ChevronDown, User as UserIcon, LogOut, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { useUserAuth } from "../test-series/context/UserAuthContext";
 
 export function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useUserAuth();
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const menuItems = [
     { label: "Home", path: "/" },
     { label: "Government Jobs", path: "/government-jobs" },
     { label: "Results", path: "/results" },
     { label: "Scholarship", path: "/scholarship" },
+    { label: "Test Series", path: "/test-series", highlight: true },
     { label: "Study Material", path: "/study-material" },
     { label: "Farming Help", path: "/farming-help" },
     { label: "Village Schemes", path: "/village-schemes" },
@@ -49,13 +54,15 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
-            {menuItems.map((item) => (
+            {menuItems.map((item: any) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`px-2 xl:px-3 py-2 rounded-lg transition-all relative text-sm xl:text-base ${
                   location.pathname === item.path
                     ? "bg-[#6DBE45] text-white"
+                    : item.highlight
+                    ? "bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white font-semibold shadow-sm hover:shadow-md"
                     : "text-gray-700 hover:text-[#6DBE45]"
                 }`}
               >
@@ -71,12 +78,46 @@ export function Navbar() {
             >
               <Search className="w-5 h-5 text-gray-600" />
             </button>
-            <button
-              onClick={() => alert("Login functionality coming soon!")}
-              className="bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-4 py-2 md:px-6 md:py-2 text-sm md:text-base rounded-full hover:shadow-lg transition-all whitespace-nowrap"
-            >
-              Login
-            </button>
+            
+            {isAuthenticated ? (
+              <div className="relative">
+                <button 
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-full transition-colors text-sm font-medium"
+                >
+                  <div className="w-6 h-6 bg-[#6DBE45] rounded-full text-white flex items-center justify-center font-bold text-xs">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="hidden md:block max-w-[100px] truncate">{user?.name}</span>
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
+                </button>
+
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                    <Link 
+                      to="/test-series/dashboard" 
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#2D7A1F]"
+                    >
+                      <LayoutDashboard className="w-4 h-4" /> My Dashboard
+                    </Link>
+                    <button 
+                      onClick={() => { logout(); setDropdownOpen(false); navigate('/'); }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left"
+                    >
+                      <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/test-series/login"
+                className="bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-4 py-2 md:px-6 md:py-2 text-sm md:text-base rounded-full hover:shadow-lg transition-all whitespace-nowrap"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
 

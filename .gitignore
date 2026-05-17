@@ -1,2 +1,6 @@
 node_modules
 frontend/dist
+.env
+.gitignore
+
+frontend/node_modules

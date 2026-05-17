@@ -9,7 +9,8 @@ import {
   Layers,
   Newspaper,
   Mail,
-  LogOut 
+  LogOut,
+  BookOpen
 } from 'lucide-react';
 
 export default function Sidebar() {
@@ -45,6 +46,12 @@ export default function Sidebar() {
         </NavLink>
         <NavLink to="/admin/contacts" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <Mail className="nav-icon" /> Contact Messages
+        </NavLink>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', margin: '8px 0', padding: '4px 0' }}>
+          <div style={{ padding: '4px 12px', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', color: 'rgba(255,255,255,0.5)' }}>Test Series</div>
+        </div>
+        <NavLink to="/admin/test-series" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <BookOpen className="nav-icon" /> Test Series
         </NavLink>
       </nav>
 

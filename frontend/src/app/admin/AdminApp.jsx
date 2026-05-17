@@ -11,6 +11,9 @@ import SchemesList from './pages/SchemesList';
 import Categories from './pages/Categories';
 import NewsList from './pages/NewsList';
 import ContactList from './pages/ContactList';
+import TestSeriesAdmin from './pages/TestSeriesAdmin';
+import TestsAdmin from './pages/TestsAdmin';
+import QuestionsAdmin from './pages/QuestionsAdmin';
 import './admin.css';
 
 export default function AdminApp() {
@@ -33,6 +36,10 @@ export default function AdminApp() {
             <Route path="news" element={<NewsList />} />
             <Route path="categories" element={<Categories />} />
             <Route path="contacts" element={<ContactList />} />
+            {/* Test Series Routes */}
+            <Route path="test-series" element={<TestSeriesAdmin />} />
+            <Route path="test-series/:seriesId/tests" element={<TestsAdmin />} />
+            <Route path="test-series/:seriesId/tests/:testId/questions" element={<QuestionsAdmin />} />
           </Route>
         </Routes>
       </AuthProvider>
