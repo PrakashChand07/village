@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL;
 
 const getAdminToken = () => localStorage.getItem('admin_token') || '';
 

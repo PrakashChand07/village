@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router';
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL;
 const headers = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('admin_token') || ''}` });
 const emptyForm = { title: '', description: '', duration: 60, isActive: true };
 
