@@ -1,4 +1,4 @@
-import { MapPin, Mail, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { MapPin, Mail, Facebook, Twitter, Instagram, Youtube, MessageCircle } from "lucide-react";
 
 export function TopHeader() {
   return (
@@ -17,16 +17,19 @@ export function TopHeader() {
 
         <div className="flex items-center gap-4">
           <div className="flex gap-3">
-            <a href="#" className="hover:opacity-80 transition-opacity">
+            <a href="https://www.facebook.com/share/1PP876URNW/" target="_blank" rel="noreferrer" title="Facebook Page" className="hover:opacity-80 transition-opacity">
               <Facebook className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:opacity-80 transition-opacity">
-              <Twitter className="w-4 h-4" />
+            <a href="https://whatsapp.com/channel/0029Va8J" target="_blank" rel="noreferrer" title="WhatsApp Channel" className="hover:opacity-80 transition-opacity">
+              <MessageCircle className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:opacity-80 transition-opacity">
+            <a href="https://www.instagram.com/krishnandan" target="_blank" rel="noreferrer" title="Instagram" className="hover:opacity-80 transition-opacity">
               <Instagram className="w-4 h-4" />
             </a>
-            <a href="#" className="hover:opacity-80 transition-opacity">
+            <a href="https://www.youtube.com/@VillageHelpkk" target="_blank" rel="noreferrer" title="Village Help YouTube" className="hover:opacity-80 transition-opacity">
+              <Youtube className="w-4 h-4" />
+            </a>
+            <a href="https://youtube.com/channel/UChOVyMm3us8N9u69SneTuuA" target="_blank" rel="noreferrer" title="KK Gyan YouTube" className="hover:opacity-80 transition-opacity">
               <Youtube className="w-4 h-4" />
             </a>
           </div>

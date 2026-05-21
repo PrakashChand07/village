@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Youtube, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { submitContact } from "../../services/api";
 
@@ -222,31 +222,52 @@ export function ContactPage() {
               <p className="text-white/90 text-sm mb-4">
                 Stay connected with us on social media for latest updates
               </p>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => alert("Opening Facebook...")}
+              <div className="flex gap-3 flex-wrap">
+                <a
+                  href="https://www.facebook.com/share/1PP876URNW/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Facebook"
                   className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition-all"
                 >
                   <Facebook className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={() => alert("Opening Twitter...")}
+                </a>
+                <a
+                  href="https://whatsapp.com/channel/0029Va8J"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="WhatsApp"
                   className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition-all"
                 >
-                  <Twitter className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={() => alert("Opening Instagram...")}
+                  <MessageCircle className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://www.instagram.com/krishnandan"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Instagram"
                   className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition-all"
                 >
                   <Instagram className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={() => alert("Opening YouTube...")}
+                </a>
+                <a
+                  href="https://www.youtube.com/@VillageHelpkk"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Village Help YouTube"
                   className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition-all"
                 >
                   <Youtube className="w-6 h-6" />
-                </button>
+                </a>
+                <a
+                  href="https://youtube.com/channel/UChOVyMm3us8N9u69SneTuuA"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="KK Gyan YouTube"
+                  className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition-all"
+                >
+                  <Youtube className="w-6 h-6" />
+                </a>
               </div>
             </div>
 

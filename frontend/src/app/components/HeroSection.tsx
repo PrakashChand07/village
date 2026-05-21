@@ -64,7 +64,7 @@ export function HeroSection() {
                 </div>
 
                 <div className="mt-6 lg:mt-8">
-                  <div className="relative flex flex-col sm:flex-row gap-2 sm:gap-0">
+                  {/* <div className="relative flex flex-col sm:flex-row gap-2 sm:gap-0">
                     <div className="relative flex-1">
                       <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <input
@@ -82,7 +82,7 @@ export function HeroSection() {
                     >
                       Search
                     </button>
-                  </div>
+                  </div> */}
 
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-4">
                     <div className="flex items-center gap-1">

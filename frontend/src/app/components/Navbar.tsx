@@ -17,9 +17,9 @@ export function Navbar() {
     { label: "Government Jobs", path: "/government-jobs" },
     { label: "Results", path: "/results" },
     { label: "Scholarship", path: "/scholarship" },
-    { label: "Test Series", path: "/test-series", highlight: true },
+    { label: "Test Series", path: "/test-series" },
     { label: "Study Material", path: "/study-material" },
-    { label: "Farming Help", path: "/farming-help" },
+    // { label: "Farming Help", path: "/farming-help" },
     { label: "Village Schemes", path: "/village-schemes" },
     { label: "News", path: "/news" },
     { label: "Contact", path: "/contact" }

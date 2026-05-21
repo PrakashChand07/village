@@ -12,6 +12,7 @@ const schemeRoutes = require('./routes/schemes.routes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const newsRoutes = require('./routes/news.routes');
 const contactRoutes = require('./routes/contact.routes');
+const studyMaterialRoutes = require('./routes/studyMaterial.routes');
 
 // Import new test series routes
 const userAuthRoutes = require('./routes/userAuth.routes');
@@ -45,6 +46,9 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, message: '✅ Village Help API is running', timestamp: new Date() });
 });
 
+// Serve static uploads
+app.use('/uploads', express.static(require('path').join(__dirname, '../uploads')));
+
 // ── Existing Routes ──────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
@@ -54,6 +58,7 @@ app.use('/api/schemes', schemeRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/contacts', contactRoutes);
+app.use('/api/study-materials', studyMaterialRoutes);
 
 // ── New Test Series Routes ───────────────────────────────────
 app.use('/api/user/auth', userAuthRoutes);

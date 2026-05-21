@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, Heart } from "lucide-react";
+import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, Heart, MessageCircle } from "lucide-react";
 
 export function Footer() {
   const footerLinks = {
@@ -13,7 +13,7 @@ export function Footer() {
       "Government Jobs",
       "Scholarship",
       "Study Material",
-      "Farming Help",
+      // "Farming Help",
       "Village Schemes",
     ],
     quickLinks: [
@@ -50,16 +50,19 @@ export function Footer() {
               Digital solutions for rural India. Empowering villages with technology.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
+              <a href="https://www.facebook.com/share/1PP876URNW/" target="_blank" rel="noreferrer" title="Facebook Page" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
-                <Twitter className="w-5 h-5" />
+              <a href="https://whatsapp.com/channel/0029Va8J" target="_blank" rel="noreferrer" title="WhatsApp Channel" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
+                <MessageCircle className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
+              <a href="https://www.instagram.com/krishnandan" target="_blank" rel="noreferrer" title="Instagram" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
+              <a href="https://www.youtube.com/@VillageHelpkk" target="_blank" rel="noreferrer" title="Village Help YouTube" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a href="https://youtube.com/channel/UChOVyMm3us8N9u69SneTuuA" target="_blank" rel="noreferrer" title="KK Gyan YouTube" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#6DBE45] transition-all">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>

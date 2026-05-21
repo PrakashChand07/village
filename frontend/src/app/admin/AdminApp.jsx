@@ -11,6 +11,7 @@ import SchemesList from './pages/SchemesList';
 import Categories from './pages/Categories';
 import NewsList from './pages/NewsList';
 import ContactList from './pages/ContactList';
+import StudyMaterialAdmin from './pages/StudyMaterialAdmin';
 import TestSeriesAdmin from './pages/TestSeriesAdmin';
 import TestsAdmin from './pages/TestsAdmin';
 import QuestionsAdmin from './pages/QuestionsAdmin';
@@ -36,6 +37,7 @@ export default function AdminApp() {
             <Route path="news" element={<NewsList />} />
             <Route path="categories" element={<Categories />} />
             <Route path="contacts" element={<ContactList />} />
+            <Route path="study-material" element={<StudyMaterialAdmin />} />
             {/* Test Series Routes */}
             <Route path="test-series" element={<TestSeriesAdmin />} />
             <Route path="test-series/:seriesId/tests" element={<TestsAdmin />} />

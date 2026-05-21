@@ -77,4 +77,15 @@ export const getAdminContacts = (params : any) => api.get('/contacts/admin/all',
 export const markContactAsRead = (id : any) => api.patch(`/contacts/admin/${id}/read`);
 export const deleteAdminContact = (id : any) => api.delete(`/contacts/admin/${id}`);
 
+// Study Materials
+export const getAdminStudyMaterials = (params : any) => api.get('/study-materials/admin/all', { params });
+export const createStudyMaterial = (data : any) => api.post('/study-materials/admin', data, {
+  headers: { 'Content-Type': 'multipart/form-data' }
+});
+export const updateStudyMaterial = (id : any, data : any) => api.put(`/study-materials/admin/${id}`, data, {
+  headers: { 'Content-Type': 'multipart/form-data' }
+});
+export const deleteStudyMaterial = (id : any) => api.delete(`/study-materials/admin/${id}`);
+export const toggleStudyMaterial = (id : any) => api.patch(`/study-materials/admin/${id}/toggle`);
+
 export default api;

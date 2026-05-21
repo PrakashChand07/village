@@ -33,7 +33,6 @@ export default function App() {
           <Route path="/admin/*" element={<AdminApp />} />
 
           {/* Test Series Routes (no public navbar/footer) */}
-          <Route path="/test-series" element={<PublicSeriesPage />} />
           <Route path="/test-series/login" element={<UserLoginPage />} />
           <Route path="/test-series/register" element={<UserRegisterPage />} />
           <Route path="/test-series/dashboard" element={<StudentDashboard />} />
@@ -59,6 +58,7 @@ export default function App() {
                 <Route path="/news" element={<NewsPage />} />
                 <Route path="/news/:id" element={<NewsDetailPage />} />
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/test-series" element={<PublicSeriesPage />} />
               </Routes>
               <Footer />
             </div>

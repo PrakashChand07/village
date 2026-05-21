@@ -12,8 +12,8 @@ export function HomePage() {
       <HeroSection />
       <ServicesSection />
       <StatsSection />
-      <RuralServicesSection />
-      <AppDownloadSection />
+      {/* <RuralServicesSection /> */}
+      {/* <AppDownloadSection /> */}
       <TestimonialsSection />
       <NewsletterSection />
     </>

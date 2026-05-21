@@ -49,3 +49,9 @@ export const submitContact = async (data: any) => {
   });
   return response.json();
 };
+
+export const fetchStudyMaterials = async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const response = await fetch(`${API_URL}/study-materials?${query}`);
+  return response.json();
+};

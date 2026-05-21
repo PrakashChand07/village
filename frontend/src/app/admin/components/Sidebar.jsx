@@ -35,6 +35,9 @@ export default function Sidebar() {
         <NavLink to="/admin/scholarships" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <GraduationCap className="nav-icon" /> Scholarships
         </NavLink>
+        <NavLink to="/admin/study-material" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <BookOpen className="nav-icon" /> Study Material
+        </NavLink>
         <NavLink to="/admin/schemes" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <Home className="nav-icon" /> Village Schemes
         </NavLink>
