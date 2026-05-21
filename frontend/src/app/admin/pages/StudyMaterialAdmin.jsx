@@ -57,10 +57,11 @@ export default function StudyMaterialAdmin() {
     setSaving(true); setError('');
     
     const formData = new FormData();
-    Object.keys(form).forEach(key => {
-      formData.append(key, form[key]);
-    });
-    
+    formData.append('title', form.title);
+    formData.append('subject', form.subject);
+    formData.append('category', form.category);
+    formData.append('description', form.description || '');
+    formData.append('isActive', form.isActive);
     formData.append('type', 'PDF'); // Always PDF
     
     if (file) {
