@@ -1,5 +1,6 @@
-import { Briefcase, Calendar, MapPin, Users, ExternalLink, Filter, Loader2, SearchX, Search } from "lucide-react";
+import { Briefcase, MapPin, Users, ExternalLink, Loader2, SearchX, Search } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { fetchJobs, fetchCategories } from "../../services/api";
 
 const formatUrl = (url: string) => {
@@ -9,6 +10,7 @@ const formatUrl = (url: string) => {
 };
 
 export function GovernmentJobsPage() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [jobs, setJobs] = useState<any[]>([]);
@@ -172,12 +174,12 @@ export function GovernmentJobsPage() {
                         </div>
                       </td>
                       <td className="block md:table-cell px-2 py-4 md:px-6 md:py-5 text-center">
-                        <div className="flex justify-center md:justify-center">
+                        <div className="flex justify-center">
                           <button
-                            onClick={() => job.applyLink && window.open(formatUrl(job.applyLink), '_blank', 'noopener,noreferrer')}
-                            className="w-full md:w-auto bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-5 py-3 md:py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap"
+                            onClick={() => navigate(`/government-jobs/${job._id}`)}
+                            className="w-full md:w-auto bg-gradient-to-r from-orange-500 to-amber-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg hover:from-orange-600 hover:to-amber-600 transition-all whitespace-nowrap"
                           >
-                            Apply Now <ExternalLink className="w-4 h-4" />
+                            View Details
                           </button>
                         </div>
                       </td>

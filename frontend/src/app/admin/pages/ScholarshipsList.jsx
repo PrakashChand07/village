@@ -1,20 +1,118 @@
 import { useState, useEffect } from 'react';
 import { getAdminScholarships, createScholarship, updateScholarship, deleteScholarship, toggleScholarship, getAdminCategories } from '../../../services/admin-api';
-import { Edit, Trash2, Plus, Power, X } from 'lucide-react';
+import { Edit, Trash2, Plus, Power, X, Type, Link, Minus, Heading } from 'lucide-react';
 
 const EMPTY_FORM = {
   title: '', amount: '', eligibility: '', deadline: '',
   provider: '', category: '', applicants: '0', applyLink: '', isNewPost: true,
+  blocks: [],
 };
 
+// ─── Block Builder Component ──────────────────────────────
+function BlockBuilder({ blocks, onChange }) {
+  const addBlock = (type) => {
+    const newBlock = type === 'link' ? { type, label: '', url: '' } : { type, value: '' };
+    onChange([...blocks, newBlock]);
+  };
+
+  const updateBlock = (index, field, value) => {
+    const updated = blocks.map((b, i) => i === index ? { ...b, [field]: value } : b);
+    onChange(updated);
+  };
+
+  const removeBlock = (index) => onChange(blocks.filter((_, i) => i !== index));
+
+  const moveBlock = (index, direction) => {
+    const arr = [...blocks];
+    const swapIdx = index + direction;
+    if (swapIdx < 0 || swapIdx >= arr.length) return;
+    [arr[index], arr[swapIdx]] = [arr[swapIdx], arr[index]];
+    onChange(arr);
+  };
+
+  const BLOCK_TYPES = [
+    { type: 'heading', label: 'Heading', icon: <Heading size={14} /> },
+    { type: 'text',    label: 'Text',    icon: <Type size={14} /> },
+    { type: 'link',    label: 'Link',    icon: <Link size={14} /> },
+    { type: 'divider', label: 'Divider', icon: <Minus size={14} /> },
+  ];
+
+  const iconBtn = {
+    background: '#f3f4f6', border: 'none', borderRadius: 6,
+    width: 24, height: 24, cursor: 'pointer', fontWeight: 700, fontSize: 12,
+  };
+
+  return (
+    <div style={{ marginTop: '0.5rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        {BLOCK_TYPES.map(({ type, label, icon }) => (
+          <button key={type} type="button" onClick={() => addBlock(type)} style={{
+            display: 'flex', alignItems: 'center', gap: '0.3rem',
+            background: '#f5f3ff', color: '#7c3aed', border: '1px dashed #7c3aed',
+            borderRadius: 8, padding: '5px 12px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+          }}>
+            {icon} + {label}
+          </button>
+        ))}
+      </div>
+
+      {blocks.length === 0 && (
+        <div style={{ textAlign: 'center', color: '#aaa', padding: '1.5rem', background: '#fafafa', borderRadius: 10, border: '1px dashed #e5e7eb', fontSize: 13 }}>
+          No blocks yet. Click above to add content blocks for the detail page.
+        </div>
+      )}
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        {blocks.map((block, index) => (
+          <div key={index} style={{ background: '#fafafa', borderRadius: 10, padding: '0.75rem 1rem', border: '1px solid #e5e7eb' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <span style={{
+                fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
+                background: block.type === 'heading' ? '#fef3c7' : block.type === 'link' ? '#ede9fe' : block.type === 'divider' ? '#f3f4f6' : '#dcfce7',
+                color: block.type === 'heading' ? '#92400e' : block.type === 'link' ? '#7c3aed' : block.type === 'divider' ? '#6b7280' : '#166534',
+                padding: '2px 8px', borderRadius: 4,
+              }}>
+                {block.type}
+              </span>
+              <div style={{ display: 'flex', gap: '0.3rem' }}>
+                <button type="button" onClick={() => moveBlock(index, -1)} style={iconBtn}>↑</button>
+                <button type="button" onClick={() => moveBlock(index, 1)}  style={iconBtn}>↓</button>
+                <button type="button" onClick={() => removeBlock(index)}   style={{ ...iconBtn, color: '#dc2626' }}>✕</button>
+              </div>
+            </div>
+
+            {block.type === 'divider' && <hr style={{ borderColor: '#e5e7eb', margin: '4px 0' }} />}
+            {(block.type === 'heading' || block.type === 'text') && (
+              <input
+                className="form-input"
+                value={block.value}
+                onChange={e => updateBlock(index, 'value', e.target.value)}
+                placeholder={block.type === 'heading' ? 'Heading text...' : 'Paragraph text...'}
+                style={{ fontSize: 13 }}
+              />
+            )}
+            {block.type === 'link' && (
+              <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
+                <input className="form-input" value={block.label} onChange={e => updateBlock(index, 'label', e.target.value)} placeholder="Button label (e.g. Apply Here)" style={{ fontSize: 13 }} />
+                <input className="form-input" value={block.url}   onChange={e => updateBlock(index, 'url', e.target.value)}   placeholder="URL (e.g. https://...)" style={{ fontSize: 13 }} />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Component ───────────────────────────────────────
 export default function ScholarshipsList() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [items, setItems]         = useState([]);
+  const [loading, setLoading]     = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [editItem, setEditItem] = useState(null);
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
+  const [editItem, setEditItem]   = useState(null);
+  const [form, setForm]           = useState(EMPTY_FORM);
+  const [saving, setSaving]       = useState(false);
+  const [error, setError]         = useState('');
   const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
@@ -29,21 +127,14 @@ export default function ScholarshipsList() {
   const fetchCategories = async () => {
     try {
       const res = await getAdminCategories({ type: 'scholarship' });
-      const cats = res.data.data || [];
-      setCategories(cats);
-      if (cats.length > 0 && !form.category && !editItem) {
-        setForm(f => ({ ...f, category: cats[0].name }));
-      }
+      setCategories(res.data.data || []);
     } catch { setCategories([]); }
   };
 
-  useEffect(() => { 
-    fetchData(); 
-    fetchCategories();
-  }, []);
+  useEffect(() => { fetchData(); fetchCategories(); }, []);
 
-  const openAdd = () => { setEditItem(null); setForm(EMPTY_FORM); setError(''); setShowModal(true); };
-  const openEdit = (item) => { setEditItem(item); setForm({ ...item }); setError(''); setShowModal(true); };
+  const openAdd  = () => { setEditItem(null); setForm({ ...EMPTY_FORM, blocks: [] }); setError(''); setShowModal(true); };
+  const openEdit = (item) => { setEditItem(item); setForm({ ...item, blocks: item.blocks || [] }); setError(''); setShowModal(true); };
   const closeModal = () => { setShowModal(false); setError(''); };
 
   const handleChange = (e) => {
@@ -86,7 +177,7 @@ export default function ScholarshipsList() {
         ) : (
           <table>
             <thead><tr>
-              <th>Title</th><th>Provider</th><th>Category</th><th>Amount</th><th>Deadline</th><th>Status</th><th>Actions</th>
+              <th>Title</th><th>Provider</th><th>Category</th><th>Amount</th><th>Deadline</th><th>Blocks</th><th>Status</th><th>Actions</th>
             </tr></thead>
             <tbody>
               {items.map((item) => (
@@ -99,27 +190,29 @@ export default function ScholarshipsList() {
                   <td>{item.category}</td>
                   <td>{item.amount}</td>
                   <td>{item.deadline}</td>
+                  <td><span style={{ fontSize: 12, background: '#f5f3ff', color: '#7c3aed', padding: '2px 8px', borderRadius: 4, fontWeight: 600 }}>{item.blocks?.length || 0} blocks</span></td>
                   <td><span className={`status-badge ${item.isActive ? 'status-active' : 'status-inactive'}`}>{item.isActive ? 'Active' : 'Inactive'}</span></td>
                   <td>
                     <div className="action-btns">
                       <button className="btn-icon" title="Toggle" onClick={() => handleToggle(item._id)}><Power size={16} /></button>
-                      <button className="btn-icon" title="Edit" onClick={() => openEdit(item)}><Edit size={16} /></button>
+                      <button className="btn-icon" title="Edit"   onClick={() => openEdit(item)}><Edit size={16} /></button>
                       <button className="btn-icon delete" title="Delete" onClick={() => handleDelete(item._id)}><Trash2 size={16} /></button>
                     </div>
                   </td>
                 </tr>
               ))}
               {items.length === 0 && (
-                <tr><td colSpan={7} style={{ textAlign: 'center', color: 'var(--gray)', padding: '3rem' }}>No scholarships found. Add your first!</td></tr>
+                <tr><td colSpan={8} style={{ textAlign: 'center', color: 'var(--gray)', padding: '3rem' }}>No scholarships found. Add your first!</td></tr>
               )}
             </tbody>
           </table>
         )}
       </div>
 
+      {/* Modal */}
       {showModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }}>
-          <div style={{ background: '#fff', borderRadius: 20, padding: '2rem', width: '100%', maxWidth: 560, maxHeight: '90vh', overflowY: 'auto' }}>
+          <div style={{ background: '#fff', borderRadius: 20, padding: '2rem', width: '100%', maxWidth: 680, maxHeight: '92vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>{editItem ? 'Edit Scholarship' : 'Add Scholarship'}</h2>
               <button onClick={closeModal} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={24} /></button>
@@ -146,19 +239,19 @@ export default function ScholarshipsList() {
                   <label className="form-label">Amount *</label>
                   <input className="form-input" name="amount" value={form.amount} onChange={handleChange} required placeholder="e.g. ₹10,000 - ₹20,000" />
                 </div>
+                <div className="form-group">
+                  <label className="form-label">Deadline *</label>
+                  <input className="form-input" name="deadline" value={form.deadline} onChange={handleChange} required placeholder="e.g. 30 May 2026" />
+                </div>
                 <div className="form-group" style={{ gridColumn: '1/-1' }}>
                   <label className="form-label">Eligibility *</label>
                   <input className="form-input" name="eligibility" value={form.eligibility} onChange={handleChange} required placeholder="e.g. 10th Pass, SC/ST Category" />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Deadline *</label>
-                  <input className="form-input" name="deadline" value={form.deadline} onChange={handleChange} required placeholder="e.g. 30 May 2026" />
-                </div>
-                <div className="form-group">
                   <label className="form-label">Applicants</label>
                   <input className="form-input" name="applicants" value={form.applicants} onChange={handleChange} placeholder="e.g. 50,000+" />
                 </div>
-                <div className="form-group" style={{ gridColumn: '1/-1' }}>
+                <div className="form-group">
                   <label className="form-label">Apply Link</label>
                   <input className="form-input" name="applyLink" value={form.applyLink} onChange={handleChange} placeholder="https://..." />
                 </div>
@@ -167,8 +260,21 @@ export default function ScholarshipsList() {
                   <label htmlFor="sIsNew" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
                 </div>
               </div>
+
+              {/* Block Builder */}
+              <div style={{ marginTop: '1.5rem', borderTop: '1px solid #e5e7eb', paddingTop: '1.5rem' }}>
+                <label className="form-label" style={{ marginBottom: '0.5rem', display: 'block' }}>
+                  Detail Page Content Blocks
+                  <span style={{ fontSize: 11, color: '#aaa', fontWeight: 400, marginLeft: 8 }}>— Shown when user clicks on this scholarship</span>
+                </label>
+                <BlockBuilder
+                  blocks={form.blocks || []}
+                  onChange={(blocks) => setForm(f => ({ ...f, blocks }))}
+                />
+              </div>
+
               <button type="submit" className="btn-primary" style={{ marginTop: '1.5rem' }} disabled={saving}>
-                {saving ? 'Saving...' : editItem ? 'Update' : 'Add Scholarship'}
+                {saving ? 'Saving...' : editItem ? 'Update Scholarship' : 'Add Scholarship'}
               </button>
             </form>
           </div>

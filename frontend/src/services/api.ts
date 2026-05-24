@@ -6,6 +6,11 @@ export const fetchJobs = async (params = {}) => {
   return response.json();
 };
 
+export const fetchJobById = async (id: string) => {
+  const response = await fetch(`${API_URL}/jobs/${id}`);
+  return response.json();
+};
+
 export const fetchResults = async (params = {}) => {
   const query = new URLSearchParams(params).toString();
   const response = await fetch(`${API_URL}/results?${query}`);
@@ -18,9 +23,19 @@ export const fetchScholarships = async (params = {}) => {
   return response.json();
 };
 
+export const fetchScholarshipById = async (id: string) => {
+  const response = await fetch(`${API_URL}/scholarships/${id}`);
+  return response.json();
+};
+
 export const fetchSchemes = async (params = {}) => {
   const query = new URLSearchParams(params).toString();
   const response = await fetch(`${API_URL}/schemes?${query}`);
+  return response.json();
+};
+
+export const fetchSchemeById = async (id: string) => {
+  const response = await fetch(`${API_URL}/schemes/${id}`);
   return response.json();
 };
 

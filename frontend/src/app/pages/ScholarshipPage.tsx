@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { fetchScholarships, fetchCategories } from "../../services/api";
-import { GraduationCap, IndianRupee, Calendar, Users, ExternalLink, Loader2, SearchX, Filter, Search } from "lucide-react";
+import { GraduationCap, IndianRupee, Calendar, Users, ExternalLink, Loader2, SearchX, Search } from "lucide-react";
 
 const formatUrl = (url: string) => {
   if (!url) return "";
@@ -9,6 +10,7 @@ const formatUrl = (url: string) => {
 };
 
 export function ScholarshipPage() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [scholarships, setScholarships] = useState<any[]>([]);
@@ -176,12 +178,12 @@ export function ScholarshipPage() {
                         </span>
                       </td>
                       <td className="block md:table-cell px-2 py-4 md:px-6 md:py-5 text-center">
-                        <div className="flex justify-center md:justify-center">
+                        <div className="flex justify-center">
                           <button
-                            onClick={() => scholarship.applyLink && window.open(formatUrl(scholarship.applyLink), '_blank', 'noopener,noreferrer')}
-                            className="w-full md:w-auto bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 py-3 md:py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap"
+                            onClick={() => navigate(`/scholarship/${scholarship._id}`)}
+                            className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-violet-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg hover:from-purple-700 hover:to-violet-700 transition-all whitespace-nowrap"
                           >
-                            Apply Now <ExternalLink className="w-4 h-4" />
+                            View Details
                           </button>
                         </div>
                       </td>

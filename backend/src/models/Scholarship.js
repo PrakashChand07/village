@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const blockSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['heading', 'text', 'link', 'divider'],
+    required: true,
+  },
+  value: { type: String, default: '' },
+  label: { type: String, default: '' },
+  url:   { type: String, default: '' },
+}, { _id: false });
+
 const scholarshipSchema = new mongoose.Schema(
   {
     title: {
@@ -34,6 +45,10 @@ const scholarshipSchema = new mongoose.Schema(
     applyLink: {
       type: String,
       default: '#',
+    },
+    blocks: {
+      type: [blockSchema],
+      default: [],
     },
     isNewPost: {
       type: Boolean,

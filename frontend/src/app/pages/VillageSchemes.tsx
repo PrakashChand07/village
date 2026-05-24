@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { fetchSchemes, fetchCategories } from "../../services/api";
-import { Building, CreditCard, Heart, Home, Lightbulb, Users, Wallet, ExternalLink, Loader2, SearchX, Filter, Search } from "lucide-react";
+import { Building, CreditCard, Heart, Home, Lightbulb, Users, Wallet, ExternalLink, Loader2, SearchX, Search } from "lucide-react";
 
 const ICON_MAP: Record<string, any> = {
   Housing: Home, Health: Heart, Food: CreditCard, Energy: Lightbulb,
@@ -23,6 +24,7 @@ const formatUrl = (url: string) => {
 };
 
 export function VillageSchemes() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [schemes, setSchemes] = useState<any[]>([]);
@@ -183,12 +185,12 @@ export function VillageSchemes() {
                           </div>
                         </td>
                         <td className="block md:table-cell px-2 py-4 md:px-6 md:py-5 text-center">
-                          <div className="flex justify-center md:justify-center">
+                          <div className="flex justify-center">
                             <button
-                              onClick={() => scheme.applyLink && window.open(formatUrl(scheme.applyLink), '_blank', 'noopener,noreferrer')}
-                              className="w-full md:w-auto bg-gradient-to-r from-[#2D7A1F] to-[#6DBE45] text-white px-5 py-3 md:py-2.5 rounded-xl text-sm font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap"
+                              onClick={() => navigate(`/village-schemes/${scheme._id}`)}
+                              className="w-full md:w-auto bg-gradient-to-r from-green-600 to-teal-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg hover:from-green-700 hover:to-teal-700 transition-all whitespace-nowrap"
                             >
-                              Apply Now <ExternalLink className="w-4 h-4" />
+                              View Details
                             </button>
                           </div>
                         </td>

@@ -11,6 +11,9 @@ import { FarmingHelpPage } from "./pages/FarmingHelpPage";
 import { VillageSchemes } from "./pages/VillageSchemes";
 import { NewsPage } from "./pages/NewsPage";
 import { NewsDetailPage } from "./pages/NewsDetailPage";
+import { JobDetailPage } from "./pages/JobDetailPage";
+import { ScholarshipDetailPage } from "./pages/ScholarshipDetailPage";
+import { SchemeDetailPage } from "./pages/SchemeDetailPage";
 import { ContactPage } from "./pages/ContactPage";
 import AdminApp from "./admin/AdminApp";
 import { UserAuthProvider } from "./test-series/context/UserAuthContext";
@@ -50,11 +53,14 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/government-jobs" element={<GovernmentJobsPage />} />
+                <Route path="/government-jobs/:id" element={<JobDetailPage />} />
                 <Route path="/results" element={<ResultsPage />} />
                 <Route path="/scholarship" element={<ScholarshipPage />} />
+                <Route path="/scholarship/:id" element={<ScholarshipDetailPage />} />
                 <Route path="/study-material" element={<StudyMaterialPage />} />
                 <Route path="/farming-help" element={<FarmingHelpPage />} />
                 <Route path="/village-schemes" element={<VillageSchemes />} />
+                <Route path="/village-schemes/:id" element={<SchemeDetailPage />} />
                 <Route path="/news" element={<NewsPage />} />
                 <Route path="/news/:id" element={<NewsDetailPage />} />
                 <Route path="/contact" element={<ContactPage />} />
