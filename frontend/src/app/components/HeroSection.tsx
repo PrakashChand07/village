@@ -57,10 +57,6 @@ export function HeroSection() {
                     <span className="w-2.5 h-2.5 rounded-full bg-[#6DBE45]"></span>
                     Important Updates
                   </h3>
-                  <span className="text-xs text-[#F4511E] font-bold tracking-wider animate-pulse bg-red-50 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-red-100">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F4511E]"></span>
-                    LIVE
-                  </span>
                 </div>
 
                 <div className="space-y-3 min-h-[300px]">
@@ -74,28 +70,35 @@ export function HeroSection() {
                       <p className="text-center text-sm">No updates available</p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-3">
                       {updates.map((update, index) => (
                         <div
                           key={update._id || index}
                           onClick={() => navigate(`/news/${update._id}`)}
-                          className="p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100/80 flex items-start justify-between gap-3 group border-l-4 border-l-[#6DBE45] hover:bg-green-50/20"
+                          className="p-3.5 bg-gradient-to-r from-gray-50/50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-center justify-between gap-4 group border-l-4 border-l-[#6DBE45] hover:bg-green-50/10 hover:border-green-100"
                         >
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-gray-800 line-clamp-2 group-hover:text-gray-900 transition-colors">
-                              {update.title}
-                            </p>
-                            <p className="text-xs text-gray-500 mt-2 font-medium">
-                              {update.date}
-                            </p>
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
+                            <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-[#6DBE45]/10 transition-colors">
+                              <Newspaper className="w-4 h-4 text-[#6DBE45]" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-semibold text-gray-800 line-clamp-1 group-hover:text-gray-900 transition-colors">
+                                {update.title}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1 text-[11px] text-gray-500">
+                                <Calendar className="w-3 h-3 text-[#F4511E]" />
+                                <span>{update.date}</span>
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1.5 self-center">
+                          
+                          <div className="flex items-center gap-2 flex-shrink-0">
                             {update.isNewPost && (
-                              <span className="bg-[#F4511E] text-white text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm shadow-red-200">
+                              <span className="bg-[#F4511E] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-sm shadow-red-200">
                                 NEW
                               </span>
                             )}
-                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
+                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 group-hover:text-gray-600 transition-all" />
                           </div>
                         </div>
                       ))}
