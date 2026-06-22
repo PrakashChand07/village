@@ -37,7 +37,7 @@ export function HeroSection() {
     { icon: Calendar, label: "Admit Card", color: "from-purple-500 to-purple-600", path: "/results" },
     { icon: Briefcase, label: "Govt Jobs", color: "from-green-500 to-green-600", path: "/government-jobs" },
     { icon: GraduationCap, label: "Scholarship", color: "from-orange-500 to-orange-600", path: "/scholarship" },
-    { icon: BookOpen, label: "Test Series", color: "from-red-500 to-red-600", path: "/study-material" },
+    { icon: BookOpen, label: "Test Series", color: "from-red-500 to-red-600", path: "/test-series" },
     { icon: Newspaper, label: "Sarkari Yojna", color: "from-teal-500 to-teal-600", path: "/news" },
   ];
 
