@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { fetchNewsById } from "../../services/api";
+import TableRenderer from "../components/TableRenderer";
 import { ArrowLeft, Newspaper, Calendar, Tag, ExternalLink, Loader2, AlertCircle } from "lucide-react";
 
 const formatUrl = (url: string) => {
@@ -158,6 +159,9 @@ export function NewsDetailPage() {
                 }
                 if (block.type === "divider") {
                   return <hr key={index} className="border-gray-200 my-2" />;
+                }
+                if (block.type === "table") {
+                  return <TableRenderer key={index} tableData={block.tableData} />;
                 }
                 return null;
               })}

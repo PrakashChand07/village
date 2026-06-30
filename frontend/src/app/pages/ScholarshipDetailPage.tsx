@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { fetchScholarshipById } from "../../services/api";
+import TableRenderer from "../components/TableRenderer";
 import {
   ArrowLeft, GraduationCap, Calendar, Users, BadgeCheck,
   ExternalLink, Loader2, AlertCircle, Tag, Banknote, BookOpen
@@ -178,6 +179,9 @@ export function ScholarshipDetailPage() {
                 }
                 if (block.type === "divider") {
                   return <hr key={index} className="border-gray-200 my-2" />;
+                }
+                if (block.type === "table") {
+                  return <TableRenderer key={index} tableData={block.tableData} />;
                 }
                 return null;
               })}

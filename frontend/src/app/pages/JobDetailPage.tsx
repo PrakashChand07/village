@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { fetchJobById } from "../../services/api";
+import TableRenderer from "../components/TableRenderer";
 import {
   ArrowLeft, Briefcase, Calendar, MapPin, BadgeCheck, Users,
   Banknote, GraduationCap, ExternalLink, Loader2, AlertCircle, Tag
@@ -179,6 +180,9 @@ export function JobDetailPage() {
                 }
                 if (block.type === "divider") {
                   return <hr key={index} className="border-gray-200 my-2" />;
+                }
+                if (block.type === "table") {
+                  return <TableRenderer key={index} tableData={block.tableData} />;
                 }
                 return null;
               })}

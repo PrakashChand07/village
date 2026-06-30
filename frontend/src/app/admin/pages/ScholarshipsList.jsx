@@ -8,101 +8,7 @@ const EMPTY_FORM = {
   blocks: [],
 };
 
-// ─── Block Builder Component ──────────────────────────────
-function BlockBuilder({ blocks, onChange }) {
-  const addBlock = (type) => {
-    const newBlock = type === 'link' ? { type, label: '', url: '' } : { type, value: '' };
-    onChange([...blocks, newBlock]);
-  };
-
-  const updateBlock = (index, field, value) => {
-    const updated = blocks.map((b, i) => i === index ? { ...b, [field]: value } : b);
-    onChange(updated);
-  };
-
-  const removeBlock = (index) => onChange(blocks.filter((_, i) => i !== index));
-
-  const moveBlock = (index, direction) => {
-    const arr = [...blocks];
-    const swapIdx = index + direction;
-    if (swapIdx < 0 || swapIdx >= arr.length) return;
-    [arr[index], arr[swapIdx]] = [arr[swapIdx], arr[index]];
-    onChange(arr);
-  };
-
-  const BLOCK_TYPES = [
-    { type: 'heading', label: 'Heading', icon: <Heading size={14} /> },
-    { type: 'text',    label: 'Text',    icon: <Type size={14} /> },
-    { type: 'link',    label: 'Link',    icon: <Link size={14} /> },
-    { type: 'divider', label: 'Divider', icon: <Minus size={14} /> },
-  ];
-
-  const iconBtn = {
-    background: '#f3f4f6', border: 'none', borderRadius: 6,
-    width: 24, height: 24, cursor: 'pointer', fontWeight: 700, fontSize: 12,
-  };
-
-  return (
-    <div style={{ marginTop: '0.5rem' }}>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-        {BLOCK_TYPES.map(({ type, label, icon }) => (
-          <button key={type} type="button" onClick={() => addBlock(type)} style={{
-            display: 'flex', alignItems: 'center', gap: '0.3rem',
-            background: '#f5f3ff', color: '#7c3aed', border: '1px dashed #7c3aed',
-            borderRadius: 8, padding: '5px 12px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
-          }}>
-            {icon} + {label}
-          </button>
-        ))}
-      </div>
-
-      {blocks.length === 0 && (
-        <div style={{ textAlign: 'center', color: '#aaa', padding: '1.5rem', background: '#fafafa', borderRadius: 10, border: '1px dashed #e5e7eb', fontSize: 13 }}>
-          No blocks yet. Click above to add content blocks for the detail page.
-        </div>
-      )}
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        {blocks.map((block, index) => (
-          <div key={index} style={{ background: '#fafafa', borderRadius: 10, padding: '0.75rem 1rem', border: '1px solid #e5e7eb' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-              <span style={{
-                fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
-                background: block.type === 'heading' ? '#fef3c7' : block.type === 'link' ? '#ede9fe' : block.type === 'divider' ? '#f3f4f6' : '#dcfce7',
-                color: block.type === 'heading' ? '#92400e' : block.type === 'link' ? '#7c3aed' : block.type === 'divider' ? '#6b7280' : '#166534',
-                padding: '2px 8px', borderRadius: 4,
-              }}>
-                {block.type}
-              </span>
-              <div style={{ display: 'flex', gap: '0.3rem' }}>
-                <button type="button" onClick={() => moveBlock(index, -1)} style={iconBtn}>↑</button>
-                <button type="button" onClick={() => moveBlock(index, 1)}  style={iconBtn}>↓</button>
-                <button type="button" onClick={() => removeBlock(index)}   style={{ ...iconBtn, color: '#dc2626' }}>✕</button>
-              </div>
-            </div>
-
-            {block.type === 'divider' && <hr style={{ borderColor: '#e5e7eb', margin: '4px 0' }} />}
-            {(block.type === 'heading' || block.type === 'text') && (
-              <input
-                className="form-input"
-                value={block.value}
-                onChange={e => updateBlock(index, 'value', e.target.value)}
-                placeholder={block.type === 'heading' ? 'Heading text...' : 'Paragraph text...'}
-                style={{ fontSize: 13 }}
-              />
-            )}
-            {block.type === 'link' && (
-              <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
-                <input className="form-input" value={block.label} onChange={e => updateBlock(index, 'label', e.target.value)} placeholder="Button label (e.g. Apply Here)" style={{ fontSize: 13 }} />
-                <input className="form-input" value={block.url}   onChange={e => updateBlock(index, 'url', e.target.value)}   placeholder="URL (e.g. https://...)" style={{ fontSize: 13 }} />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import BlockBuilder from '../components/BlockBuilder';
 
 // ─── Main Component ───────────────────────────────────────
 export default function ScholarshipsList() {
@@ -270,6 +176,7 @@ export default function ScholarshipsList() {
                 <BlockBuilder
                   blocks={form.blocks || []}
                   onChange={(blocks) => setForm(f => ({ ...f, blocks }))}
+                  theme="purple"
                 />
               </div>
 
