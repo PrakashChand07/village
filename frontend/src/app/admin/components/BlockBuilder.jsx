@@ -31,12 +31,32 @@ function parseCellContentPreview(text) {
           } else if (part.startsWith('[') && part.includes('](')) {
             const closeBracketIdx = part.indexOf(']');
             const content = part.slice(1, closeBracketIdx);
-            const styleOrColor = part.slice(closeBracketIdx + 2, -1);
-            let colorStyle = styleOrColor;
-            if (styleOrColor === 'red') colorStyle = '#e11d48';
-            else if (styleOrColor === 'green') colorStyle = '#16a34a';
-            else if (styleOrColor === 'orange') colorStyle = '#ea580c';
-            else if (styleOrColor === 'blue') colorStyle = '#2563eb';
+            const target = part.slice(closeBracketIdx + 2, -1);
+            
+            const isLink = target.startsWith('http') || target.startsWith('www') || target.includes('.') || target.startsWith('/');
+            if (isLink) {
+              let href = target;
+              if (!/^https?:\/\//i.test(target)) {
+                href = 'https://' + target;
+              }
+              return (
+                <a 
+                  key={pIdx} 
+                  href={href} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ color: '#ea580c', textDecoration: 'underline', fontWeight: 700 }}
+                >
+                  {content}
+                </a>
+              );
+            }
+            
+            let colorStyle = target;
+            if (target === 'red') colorStyle = '#e11d48';
+            else if (target === 'green') colorStyle = '#16a34a';
+            else if (target === 'orange') colorStyle = '#ea580c';
+            else if (target === 'blue') colorStyle = '#2563eb';
             
             return (
               <span key={pIdx} style={{ color: colorStyle, fontWeight: 700 }}>
@@ -170,6 +190,15 @@ const COLOR_PALETTE = [
 ];
 
 export function BlockBuilder({ blocks, onChange, theme = 'orange' }) {
+  const [linkModal, setLinkModal] = useState({
+    isOpen: false,
+    text: '',
+    url: '',
+    blockIdx: -1,
+    rowIdx: -1,
+    colIdx: -1
+  });
+
   const addBlock = (type) => {
     let newBlock;
     if (type === 'link') {
@@ -354,6 +383,58 @@ export function BlockBuilder({ blocks, onChange, theme = 'orange' }) {
       };
     });
   };
+  
+  // Open custom modal for link insertion
+  const openLinkModal = (blockIdx, rowIdx, colIdx) => {
+    let initialText = '';
+    const textarea = document.getElementById(`cell-textarea-${blockIdx}-${rowIdx}-${colIdx}`);
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      if (start !== end) {
+        initialText = textarea.value.substring(start, end);
+      }
+    }
+    setLinkModal({
+      isOpen: true,
+      text: initialText,
+      url: '',
+      blockIdx,
+      rowIdx,
+      colIdx
+    });
+  };
+
+  // Perform link insertion from modal input
+  const handleInsertLink = () => {
+    const { blockIdx, rowIdx, colIdx, text, url } = linkModal;
+    if (!text || !url) {
+      setLinkModal({ isOpen: false, text: '', url: '', blockIdx: -1, rowIdx: -1, colIdx: -1 });
+      return;
+    }
+
+    const textarea = document.getElementById(`cell-textarea-${blockIdx}-${rowIdx}-${colIdx}`);
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentVal = textarea.value;
+      
+      const linkText = `[${text}](${url})`;
+      const newVal = currentVal.substring(0, start) + linkText + currentVal.substring(end);
+      
+      // Update cell state
+      updateTableCell(blockIdx, rowIdx, colIdx, newVal);
+      
+      // Close modal
+      setLinkModal({ isOpen: false, text: '', url: '', blockIdx: -1, rowIdx: -1, colIdx: -1 });
+      
+      // Focus textarea back and set cursor position after the link
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + linkText.length, start + linkText.length);
+      }, 0);
+    }
+  };
 
   // Theme system definitions
   const themeStyles = {
@@ -449,13 +530,32 @@ export function BlockBuilder({ blocks, onChange, theme = 'orange' }) {
               {/* Input section of block card */}
               {block.type === 'divider' && <hr style={{ borderColor: '#e5e7eb', margin: '8px 0' }} />}
               
-              {(block.type === 'heading' || block.type === 'text') && (
+              {block.type === 'heading' && (
                 <input
                   className="form-input"
                   value={block.value || ''}
                   onChange={e => updateBlock(index, 'value', e.target.value)}
-                  placeholder={block.type === 'heading' ? 'Heading text...' : 'Paragraph text...'}
+                  placeholder="Heading text..."
                   style={{ fontSize: 13, width: '100%', boxSizing: 'border-box' }}
+                />
+              )}
+              {block.type === 'text' && (
+                <textarea
+                  className="form-input"
+                  value={block.value || ''}
+                  onChange={e => updateBlock(index, 'value', e.target.value)}
+                  placeholder="Paragraph text (press Enter to write on multiple lines)..."
+                  rows={4}
+                  style={{ 
+                    fontSize: 13, 
+                    width: '100%', 
+                    boxSizing: 'border-box', 
+                    minHeight: '80px', 
+                    resize: 'vertical', 
+                    fontFamily: 'inherit',
+                    lineHeight: '1.4',
+                    padding: '8px'
+                  }}
                 />
               )}
 
@@ -649,10 +749,26 @@ export function BlockBuilder({ blocks, onChange, theme = 'orange' }) {
                         }}>
                           {row.map((cellText, colIdx) => (
                             <div key={colIdx} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                              <span style={{ fontSize: 10, fontWeight: 600, color: '#64748b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                {tableData.headers[colIdx]?.text || `Col ${colIdx + 1}`}
-                              </span>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: 10, fontWeight: 600, color: '#64748b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', flex: 1 }}>
+                                  {tableData.headers[colIdx]?.text || `Col ${colIdx + 1}`}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => openLinkModal(index, rowIdx, colIdx)}
+                                  style={{
+                                    background: 'none', border: 'none', color: '#ea580c', cursor: 'pointer',
+                                    fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', gap: '2px',
+                                    padding: '2px 4px', borderRadius: 4, transition: 'background 0.15s'
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.background = '#ffedd5'}
+                                  onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+                                >
+                                  <Link size={10} /> Add Link
+                                </button>
+                              </div>
                               <textarea
+                                id={`cell-textarea-${index}-${rowIdx}-${colIdx}`}
                                 value={cellText}
                                 onChange={(e) => updateTableCell(index, rowIdx, colIdx, e.target.value)}
                                 placeholder="Enter content..."
@@ -765,6 +881,108 @@ export function BlockBuilder({ blocks, onChange, theme = 'orange' }) {
           );
         })}
       </div>
+
+      {/* Link Insertion Modal */}
+      {linkModal.isOpen && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1100,
+          padding: '1rem'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: 16,
+            padding: '1.5rem',
+            width: '100%',
+            maxWidth: 400,
+            boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+            border: '1px solid #e2e8f0'
+          }}>
+            <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.1rem', fontWeight: 700, color: '#1e293b' }}>Insert Link</h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#64748b' }}>Link Text (to show in table):</label>
+                <input 
+                  type="text" 
+                  value={linkModal.text} 
+                  onChange={(e) => setLinkModal(prev => ({ ...prev, text: e.target.value }))}
+                  placeholder="e.g. Apply Link"
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: 13,
+                    borderRadius: 8,
+                    border: '1px solid #cbd5e1',
+                    outline: 'none',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                  autoFocus
+                />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: 11, fontWeight: 600, color: '#64748b' }}>Link URL:</label>
+                <input 
+                  type="text" 
+                  value={linkModal.url} 
+                  onChange={(e) => setLinkModal(prev => ({ ...prev, url: e.target.value }))}
+                  placeholder="e.g. www.google.com"
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: 13,
+                    borderRadius: 8,
+                    border: '1px solid #cbd5e1',
+                    outline: 'none',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                />
+              </div>
+            </div>
+            
+            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+              <button 
+                type="button" 
+                onClick={() => setLinkModal({ isOpen: false, text: '', url: '', blockIdx: -1, rowIdx: -1, colIdx: -1 })}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  borderRadius: 8,
+                  border: '1px solid #cbd5e1',
+                  background: '#ffffff',
+                  color: '#475569',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button 
+                type="button" 
+                onClick={handleInsertLink}
+                disabled={!linkModal.text || !linkModal.url}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  borderRadius: 8,
+                  border: 'none',
+                  background: (!linkModal.text || !linkModal.url) ? '#cbd5e1' : '#ea580c',
+                  color: '#ffffff',
+                  cursor: (!linkModal.text || !linkModal.url) ? 'not-allowed' : 'pointer'
+                }}
+              >
+                Insert
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

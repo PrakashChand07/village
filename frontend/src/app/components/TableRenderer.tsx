@@ -31,12 +31,32 @@ export function parseCellContent(text: string) {
           } else if (part.startsWith('[') && part.includes('](')) {
             const closeBracketIdx = part.indexOf(']');
             const content = part.slice(1, closeBracketIdx);
-            const styleOrColor = part.slice(closeBracketIdx + 2, -1);
-            let colorStyle = styleOrColor;
-            if (styleOrColor === 'red') colorStyle = '#e11d48'; // rose-600
-            else if (styleOrColor === 'green') colorStyle = '#16a34a'; // green-600
-            else if (styleOrColor === 'orange') colorStyle = '#ea580c'; // orange-600
-            else if (styleOrColor === 'blue') colorStyle = '#2563eb'; // blue-600
+            const target = part.slice(closeBracketIdx + 2, -1);
+            
+            const isLink = target.startsWith('http') || target.startsWith('www') || target.includes('.') || target.startsWith('/');
+            if (isLink) {
+              let href = target;
+              if (!/^https?:\/\//i.test(target)) {
+                href = 'https://' + target;
+              }
+              return (
+                <a 
+                  key={pIdx} 
+                  href={href} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-bold text-orange-600 hover:text-orange-800 underline transition-colors"
+                >
+                  {content}
+                </a>
+              );
+            }
+            
+            let colorStyle = target;
+            if (target === 'red') colorStyle = '#e11d48'; // rose-600
+            else if (target === 'green') colorStyle = '#16a34a'; // green-600
+            else if (target === 'orange') colorStyle = '#ea580c'; // orange-600
+            else if (target === 'blue') colorStyle = '#2563eb'; // blue-600
             
             return (
               <span key={pIdx} style={{ color: colorStyle }} className="font-bold">

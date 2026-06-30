@@ -147,7 +147,7 @@ export function SchemeDetailPage() {
                 }
                 if (block.type === "text") {
                   return (
-                    <p key={index} className="text-gray-600 leading-relaxed text-base">
+                    <p key={index} className="text-gray-600 leading-relaxed text-base whitespace-pre-line">
                       {block.value}
                     </p>
                   );
