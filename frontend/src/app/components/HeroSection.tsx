@@ -1,4 +1,4 @@
-import { Search, TrendingUp, Zap, Shield, Calendar, FileText, Briefcase, GraduationCap, Newspaper, BookOpen, Loader2 } from "lucide-react";
+import { Search, TrendingUp, Zap, Shield, Calendar, FileText, Briefcase, GraduationCap, Newspaper, BookOpen, Loader2, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { fetchNews } from "../../services/api";
@@ -6,7 +6,6 @@ import { fetchNews } from "../../services/api";
 export function HeroSection() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const trendingTags = ["PM Kisan", "Railway Jobs", "SSC", "NEET Result", "Scholarship 2026"];
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
@@ -20,8 +19,10 @@ export function HeroSection() {
   useEffect(() => {
     const loadNews = async () => {
       try {
-        const response = await fetchNews({ limit: 5, page: 1 });
-        if (response.success) setUpdates(response.data || []);
+        const response = await fetchNews({ limit: 8, page: 1 });
+        if (response.success) {
+          setUpdates(response.data || []);
+        }
       } catch {
         setUpdates([]);
       } finally {
@@ -36,7 +37,7 @@ export function HeroSection() {
     { icon: Calendar, label: "Admit Card", color: "from-purple-500 to-purple-600", path: "/results" },
     { icon: Briefcase, label: "Govt Jobs", color: "from-green-500 to-green-600", path: "/government-jobs" },
     { icon: GraduationCap, label: "Scholarship", color: "from-orange-500 to-orange-600", path: "/scholarship" },
-    { icon: BookOpen, label: "Test Series", color: "from-red-500 to-red-600", path: "/study-material" },
+    { icon: BookOpen, label: "Test Series", color: "from-red-500 to-red-600", path: "/test-series" },
     { icon: Newspaper, label: "Sarkari Yojna", color: "from-teal-500 to-teal-600", path: "/news" },
   ];
 
@@ -46,119 +47,69 @@ export function HeroSection() {
 
       <div className="max-w-7xl mx-auto px-4 py-6 lg:py-12 relative">
         <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6">
-          {/* Main Hero Content - Moved to top on mobile */}
-          <div className="lg:col-span-4 order-1 lg:order-3">
-            <div className="bg-white rounded-3xl shadow-2xl p-6 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#6DBE45]/20 to-transparent rounded-full blur-3xl"></div>
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div>
-                    <h1 className="text-2xl text-gray-800" style={{ fontFamily: 'Mukta, sans-serif' }}>
-                      गांव की हर समस्या का डिजिटल समाधान
-                    </h1>
-                    <p className="text-gray-600 mt-2 text-sm">
-                      सरकारी योजना, नौकरी, खेती, स्कॉलरशिप और डिजिटल सेवाएं एक ही प्लेटफॉर्म पर।
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 lg:mt-8">
-                  {/* <div className="relative flex flex-col sm:flex-row gap-2 sm:gap-0">
-                    <div className="relative flex-1">
-                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                        placeholder="Search.."
-                        className="w-full pl-12 pr-4 py-3 sm:py-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl sm:rounded-r-none focus:border-[#6DBE45] focus:outline-none transition-all"
-                      />
-                    </div>
-                    <button
-                      onClick={handleSearch}
-                      className="bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white px-6 py-3 sm:py-4 rounded-xl sm:rounded-l-none hover:shadow-lg transition-all whitespace-nowrap"
-                    >
-                      Search
-                    </button>
-                  </div> */}
-
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-4">
-                    <div className="flex items-center gap-1">
-                      <TrendingUp className="w-4 h-4 text-[#F4511E]" />
-                      <span className="text-sm text-gray-600 whitespace-nowrap">Trending:</span>
-                    </div>
-                    <div className="flex gap-2 flex-wrap">
-                      {trendingTags.map((tag, index) => (
-                        <button
-                          key={index}
-                          className="text-xs bg-gray-100 hover:bg-[#6DBE45] hover:text-white px-3 py-1 rounded-full transition-all"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 lg:mt-8">
-                  <div className="bg-gradient-to-br from-[#6DBE45]/10 to-[#6DBE45]/5 p-4 rounded-xl border border-[#6DBE45]/20">
-                    <Zap className="w-8 h-8 text-[#6DBE45] mb-2" />
-                    <h3 className="font-semibold text-gray-800">Fast Updates</h3>
-                    <p className="text-xs text-gray-600 mt-1">Real-time notifications</p>
-                  </div>
-                  <div className="bg-gradient-to-br from-[#2D7A1F]/10 to-[#2D7A1F]/5 p-4 rounded-xl border border-[#2D7A1F]/20">
-                    <GraduationCap className="w-8 h-8 text-[#2D7A1F] mb-2" />
-                    <h3 className="font-semibold text-gray-800">Village Support</h3>
-                    <p className="text-xs text-gray-600 mt-1">24/7 assistance</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Important Updates Panel */}
-          <div className="lg:col-span-6 order-2 lg:order-2">
-            <div className="bg-white rounded-2xl shadow-lg p-6 h-full">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-gray-800">Important Updates</h3>
-                <span className="text-xs text-[#F4511E] animate-pulse">● LIVE</span>
-              </div>
+          <div className="lg:col-span-10 order-2 lg:order-2">
+            <div className="bg-white rounded-2xl shadow-lg p-6 h-full flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+                  <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#6DBE45]"></span>
+                    Important Updates
+                  </h3>
+                </div>
 
-              <div className="space-y-3">
-                {updatesLoading ? (
-                  <div className="flex justify-center py-8">
-                    <Loader2 className="w-6 h-6 text-[#6DBE45] animate-spin" />
-                  </div>
-                ) : updates.length === 0 ? (
-                  <p className="text-center text-gray-400 text-sm py-6">No updates available</p>
-                ) : (
-                  updates.map((update, index) => (
-                    <div
-                      key={update._id || index}
-                      onClick={() => navigate(`/news/${update._id}`)}
-                      className="p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100"
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-800 line-clamp-2">{update.title}</p>
-                          <p className="text-xs text-gray-500 mt-1">{update.date}</p>
-                        </div>
-                        {update.isNewPost && (
-                          <span className="bg-[#F4511E] text-white text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                            NEW
-                          </span>
-                        )}
-                      </div>
+                <div className="space-y-3 min-h-[300px]">
+                  {updatesLoading ? (
+                    <div className="flex flex-col items-center justify-center py-20 gap-3">
+                      <Loader2 className="w-10 h-10 text-[#6DBE45] animate-spin" />
+                      <p className="text-sm text-gray-500 font-medium animate-pulse">Fetching latest updates...</p>
                     </div>
-                  ))
-                )}
+                  ) : updates.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+                      <p className="text-center text-sm">No updates available</p>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      {updates.map((update, index) => (
+                        <div
+                          key={update._id || index}
+                          onClick={() => navigate(`/news/${update._id}`)}
+                          className="p-3.5 bg-gradient-to-r from-gray-50/50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-center justify-between gap-4 group border-l-4 border-l-[#6DBE45] hover:bg-green-50/10 hover:border-green-100"
+                        >
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
+                            <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-[#6DBE45]/10 transition-colors">
+                              <Newspaper className="w-4 h-4 text-[#6DBE45]" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-semibold text-gray-800 line-clamp-1 group-hover:text-gray-900 transition-colors">
+                                {update.title}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1 text-[11px] text-gray-500">
+                                <Calendar className="w-3 h-3 text-[#F4511E]" />
+                                <span>{update.date}</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            {update.isNewPost && (
+                              <span className="bg-[#F4511E] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-sm shadow-red-200">
+                                NEW
+                              </span>
+                            )}
+                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 group-hover:text-gray-600 transition-all" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <button
                 onClick={() => navigate("/news")}
-                className="w-full mt-4 bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white py-2 rounded-xl hover:shadow-lg transition-all"
+                className="w-full mt-6 bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white py-3 rounded-xl hover:shadow-xl transition-all font-bold text-sm shadow-md flex items-center justify-center gap-2"
               >
                 View More
               </button>
@@ -172,7 +123,7 @@ export function HeroSection() {
                 <button
                   key={index}
                   onClick={() => navigate(item.path)}
-                  className={`w-full bg-gradient-to-br ${item.color} text-white p-3 lg:p-4 rounded-xl hover:shadow-lg transition-all hover:scale-105 flex flex-col items-center justify-center gap-2 h-full min-h-[100px] lg:min-h-0`}
+                  className={`w-full bg-gradient-to-br ${item.color} text-white p-3 lg:p-4 rounded-xl shadow-md transition-all flex flex-col items-center justify-center gap-2 h-full min-h-[100px] lg:min-h-0 hover:scale-105 hover:shadow-lg`}
                 >
                   <item.icon className="w-5 h-5 lg:w-6 lg:h-6" />
                   <span className="text-xs lg:text-sm font-medium text-center">{item.label}</span>
