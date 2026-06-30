@@ -73,7 +73,7 @@ export function JobDetailPage() {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Back Button */}
         <button
@@ -109,9 +109,9 @@ export function JobDetailPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
           {[
             { icon: <Users className="w-5 h-5 text-orange-500" />, label: "Total Posts", value: job.posts },
-            { icon: <Calendar className="w-5 h-5 text-red-500" />,  label: "Last Date",  value: job.lastDate },
-            { icon: <MapPin className="w-5 h-5 text-blue-500" />,   label: "Location",   value: job.location },
-            { icon: <Banknote className="w-5 h-5 text-green-500" />, label: "Salary",    value: job.salary },
+            { icon: <Calendar className="w-5 h-5 text-red-500" />, label: "Last Date", value: job.lastDate },
+            { icon: <MapPin className="w-5 h-5 text-blue-500" />, label: "Location", value: job.location },
+            { icon: <Banknote className="w-5 h-5 text-green-500" />, label: "Salary", value: job.salary },
             { icon: <GraduationCap className="w-5 h-5 text-purple-500" />, label: "Qualification", value: job.qualification },
           ].map(({ icon, label, value }) => (
             <div key={label} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start gap-3">
@@ -144,7 +144,7 @@ export function JobDetailPage() {
             <div className="px-8 pt-6 pb-2 border-b border-gray-100">
               <h2 className="text-sm font-bold text-orange-600 uppercase tracking-wider">Job Details</h2>
             </div>
-            <div className="p-8 space-y-6">
+            <div className="p-4 space-y-6">
               {job.blocks.map((block: any, index: number) => {
                 if (block.type === "heading") {
                   return (

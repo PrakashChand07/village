@@ -19,7 +19,7 @@ export function NewsletterSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
+      <div className="max-w-6xl mx-auto px-4 relative z-10 text-center">
         <div className="inline-block p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
           <Mail className="w-12 h-12 text-white" />
         </div>

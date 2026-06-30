@@ -47,7 +47,7 @@ export default function ResultPage() {
 
   useEffect(() => {
     if (!attemptId) return;
-    attemptsAPI.getById(attemptId, token!).then(res => setAttempt(res.data.data)).catch(() => {}).finally(() => setLoading(false));
+    attemptsAPI.getById(attemptId, token!).then(res => setAttempt(res.data.data)).catch(() => { }).finally(() => setLoading(false));
   }, [attemptId, token]);
 
   const toggleExpand = (id: string) => {
@@ -70,7 +70,7 @@ export default function ResultPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
       <div className="bg-gradient-to-r from-[#1a3c1a] via-[#2D7A1F] to-[#6DBE45] text-white py-12 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 mb-4">
             <Trophy className="w-10 h-10" />
           </div>

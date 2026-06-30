@@ -51,7 +51,7 @@ export default function StudentDashboard() {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-black opacity-10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4" />
-        
+
         <div className="max-w-6xl mx-auto relative z-10 flex flex-col md:flex-row items-center md:items-end justify-between gap-6">
           <div className="flex items-center gap-6 text-center md:text-left">
             <div className="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-xl">
@@ -68,7 +68,7 @@ export default function StudentDashboard() {
               </p>
             </div>
           </div>
-          
+
           <div className="flex flex-wrap justify-center gap-3 w-full md:w-auto">
             <Link to="/test-series"
               className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm">
@@ -119,7 +119,7 @@ export default function StudentDashboard() {
             </Link>
           </div>
           {loading ? (
-            <div className="space-y-4">{[1,2,3].map(i => <div key={i} className="h-20 bg-gray-50 rounded-xl animate-pulse" />)}</div>
+            <div className="space-y-4">{[1, 2, 3].map(i => <div key={i} className="h-20 bg-gray-50 rounded-xl animate-pulse" />)}</div>
           ) : attempts.length === 0 ? (
             <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm mb-4">
@@ -163,7 +163,7 @@ export default function StudentDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className={`grid gap-4 ${attempts.length > 0 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'}`}>
+        <div className={`grid gap-4 ${attempts.length > 0 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto'}`}>
           <Link to="/test-series" className="group bg-white border border-gray-100 p-6 rounded-2xl hover:border-[#6DBE45] hover:shadow-lg transition-all flex items-center gap-5 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#6DBE45]/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000" />
             <div className="w-14 h-14 rounded-full bg-[#6DBE45]/10 text-[#2D7A1F] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
@@ -174,7 +174,7 @@ export default function StudentDashboard() {
               <div className="text-sm text-gray-500 mt-0.5">Explore all available test series</div>
             </div>
           </Link>
-          
+
           <Link to="/test-series/my-results" className="group bg-white border border-gray-100 p-6 rounded-2xl hover:border-blue-500 hover:shadow-lg transition-all flex items-center gap-5 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000" />
             <div className="w-14 h-14 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
@@ -185,7 +185,7 @@ export default function StudentDashboard() {
               <div className="text-sm text-gray-500 mt-0.5">Detailed history & analytics</div>
             </div>
           </Link>
-          
+
           {attempts.length > 0 && (
             <Link to={`/test-series/result/${attempts[0]._id}`} className="group bg-white border border-gray-100 p-6 rounded-2xl hover:border-yellow-500 hover:shadow-lg transition-all flex items-center gap-5 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-500/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000" />

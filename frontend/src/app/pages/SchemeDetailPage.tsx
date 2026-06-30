@@ -73,7 +73,7 @@ export function SchemeDetailPage() {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Back Button */}
         <button
@@ -136,7 +136,7 @@ export function SchemeDetailPage() {
 
           {/* Rich Content Blocks */}
           {scheme.blocks && scheme.blocks.length > 0 && (
-            <div className="p-8 space-y-6">
+            <div className="p-4 space-y-6">
               {scheme.blocks.map((block: any, index: number) => {
                 if (block.type === "heading") {
                   return (

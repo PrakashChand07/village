@@ -14,13 +14,13 @@ import BlockBuilder from '../components/BlockBuilder';
 
 // ─── Main Component ───────────────────────────────────────
 export default function SchemesList() {
-  const [items, setItems]         = useState([]);
-  const [loading, setLoading]     = useState(true);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [editItem, setEditItem]   = useState(null);
-  const [form, setForm]           = useState(EMPTY_FORM);
-  const [saving, setSaving]       = useState(false);
-  const [error, setError]         = useState('');
+  const [editItem, setEditItem] = useState(null);
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
   const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
@@ -41,7 +41,7 @@ export default function SchemesList() {
 
   useEffect(() => { fetchData(); fetchCategories(); }, []);
 
-  const openAdd  = () => { setEditItem(null); setForm({ ...EMPTY_FORM, blocks: [] }); setError(''); setShowModal(true); };
+  const openAdd = () => { setEditItem(null); setForm({ ...EMPTY_FORM, blocks: [] }); setError(''); setShowModal(true); };
   const openEdit = (item) => { setEditItem(item); setForm({ ...item, blocks: item.blocks || [] }); setError(''); setShowModal(true); };
   const closeModal = () => { setShowModal(false); setError(''); };
 
@@ -98,7 +98,7 @@ export default function SchemesList() {
                   <td>
                     <div className="action-btns">
                       <button className="btn-icon" title="Toggle" onClick={() => handleToggle(item._id)}><Power size={16} /></button>
-                      <button className="btn-icon" title="Edit"   onClick={() => openEdit(item)}><Edit size={16} /></button>
+                      <button className="btn-icon" title="Edit" onClick={() => openEdit(item)}><Edit size={16} /></button>
                       <button className="btn-icon delete" title="Delete" onClick={() => handleDelete(item._id)}><Trash2 size={16} /></button>
                     </div>
                   </td>
@@ -115,7 +115,7 @@ export default function SchemesList() {
       {/* Modal */}
       {showModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }}>
-          <div style={{ background: '#fff', borderRadius: 20, padding: '2rem', width: '100%', maxWidth: 680, maxHeight: '92vh', overflowY: 'auto' }}>
+          <div style={{ background: '#fff', borderRadius: 20, padding: '2rem', width: '100%', maxWidth: 780, maxHeight: '92vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>{editItem ? 'Edit Scheme' : 'Add New Scheme'}</h2>
               <button onClick={closeModal} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={24} /></button>

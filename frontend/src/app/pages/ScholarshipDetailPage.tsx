@@ -73,7 +73,7 @@ export function ScholarshipDetailPage() {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Back Button */}
         <button
@@ -108,10 +108,10 @@ export function ScholarshipDetailPage() {
         {/* Quick Info Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
           {[
-            { icon: <Banknote className="w-5 h-5 text-purple-500" />, label: "Amount",      value: scholarship.amount },
-            { icon: <Calendar className="w-5 h-5 text-red-500" />,   label: "Deadline",     value: scholarship.deadline },
-            { icon: <BookOpen className="w-5 h-5 text-blue-500" />,  label: "Eligibility",  value: scholarship.eligibility },
-            { icon: <Users className="w-5 h-5 text-green-500" />,    label: "Applicants",   value: scholarship.applicants || 'N/A' },
+            { icon: <Banknote className="w-5 h-5 text-purple-500" />, label: "Amount", value: scholarship.amount },
+            { icon: <Calendar className="w-5 h-5 text-red-500" />, label: "Deadline", value: scholarship.deadline },
+            { icon: <BookOpen className="w-5 h-5 text-blue-500" />, label: "Eligibility", value: scholarship.eligibility },
+            { icon: <Users className="w-5 h-5 text-green-500" />, label: "Applicants", value: scholarship.applicants || 'N/A' },
           ].map(({ icon, label, value }) => (
             <div key={label} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start gap-3">
               <div className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -143,7 +143,7 @@ export function ScholarshipDetailPage() {
             <div className="px-8 pt-6 pb-2 border-b border-gray-100">
               <h2 className="text-sm font-bold text-purple-600 uppercase tracking-wider">Scholarship Details</h2>
             </div>
-            <div className="p-8 space-y-6">
+            <div className="p-4 space-y-6">
               {scholarship.blocks.map((block: any, index: number) => {
                 if (block.type === "heading") {
                   return (

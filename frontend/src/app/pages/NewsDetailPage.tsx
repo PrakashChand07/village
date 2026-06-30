@@ -70,7 +70,7 @@ export function NewsDetailPage() {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Back Button */}
         <button
@@ -114,7 +114,7 @@ export function NewsDetailPage() {
 
         {/* Content Card */}
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          
+
           {/* Summary / Intro */}
           <div className="p-8 border-b border-gray-100">
             <h2 className="text-sm font-bold text-blue-600 uppercase tracking-wider mb-3">Summary</h2>
@@ -123,7 +123,7 @@ export function NewsDetailPage() {
 
           {/* Rich Content Blocks */}
           {news.blocks && news.blocks.length > 0 && (
-            <div className="p-8 space-y-6">
+            <div className="p-4 space-y-6">
               {news.blocks.map((block: any, index: number) => {
                 if (block.type === "heading") {
                   return (

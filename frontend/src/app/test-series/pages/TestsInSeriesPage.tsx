@@ -35,7 +35,7 @@ export default function TestsInSeriesPage() {
       testsAPI.getBySeries(seriesId),
       import('../api/testSeriesApi').then(m => m.testSeriesAPI.getById(seriesId)),
     ];
-    
+
     // Fetch attempts if user is logged in
     if (isAuthenticated && token) {
       fetchPromises.push(attemptsAPI.getMyHistory(token));
@@ -47,13 +47,13 @@ export default function TestsInSeriesPage() {
         setSeries(results[1].data.data);
         if (results[2]) {
           // Sort attempts by date (newest first) to always show latest result
-          const sortedAttempts = results[2].data.data.sort((a: any, b: any) => 
+          const sortedAttempts = results[2].data.data.sort((a: any, b: any) =>
             new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
           );
           setAttempts(sortedAttempts);
         }
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, [seriesId, isAuthenticated, token]);
 
@@ -67,7 +67,7 @@ export default function TestsInSeriesPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#1a3c1a] to-[#2D7A1F] text-white py-8 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <Link to="/test-series" className="flex items-center gap-2 text-green-200 hover:text-white text-sm mb-4 transition-colors w-fit">
             <ChevronLeft className="w-4 h-4" /> Back to Test Series
           </Link>
@@ -84,10 +84,10 @@ export default function TestsInSeriesPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         {loading ? (
           <div className="space-y-4">
-            {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl border h-28 animate-pulse" />)}
+            {[1, 2, 3].map(i => <div key={i} className="bg-white rounded-2xl border h-28 animate-pulse" />)}
           </div>
         ) : tests.length === 0 ? (
           <div className="text-center py-16">
@@ -99,7 +99,7 @@ export default function TestsInSeriesPage() {
           <div className="space-y-4">
             {tests.map((test, idx) => {
               const myAttempt = attempts.find(a => a.test?._id === test._id || a.test === test._id);
-              
+
               return (
                 <div key={test._id} className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all p-6 flex flex-col md:flex-row md:items-center gap-4">
                   <div className={`flex items-center justify-center w-12 h-12 rounded-xl text-white font-bold text-lg flex-shrink-0 shadow-sm ${myAttempt ? 'bg-gradient-to-br from-blue-500 to-blue-700' : 'bg-gradient-to-br from-[#6DBE45] to-[#2D7A1F]'}`}>
