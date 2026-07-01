@@ -13,6 +13,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const newsRoutes = require('./routes/news.routes');
 const contactRoutes = require('./routes/contact.routes');
 const studyMaterialRoutes = require('./routes/studyMaterial.routes');
+const importantUpdatesRoutes = require('./routes/importantUpdates.routes');
 
 // Import new test series routes
 const userAuthRoutes = require('./routes/userAuth.routes');
@@ -59,6 +60,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/study-materials', studyMaterialRoutes);
+app.use('/api/important-updates', importantUpdatesRoutes);
 
 // ── New Test Series Routes ───────────────────────────────────
 app.use('/api/user/auth', userAuthRoutes);

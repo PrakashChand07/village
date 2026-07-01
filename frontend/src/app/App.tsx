@@ -15,6 +15,7 @@ import { JobDetailPage } from "./pages/JobDetailPage";
 import { ScholarshipDetailPage } from "./pages/ScholarshipDetailPage";
 import { SchemeDetailPage } from "./pages/SchemeDetailPage";
 import { ContactPage } from "./pages/ContactPage";
+import { ImportantUpdatesPage } from "./pages/ImportantUpdatesPage";
 import AdminApp from "./admin/AdminApp";
 import { UserAuthProvider } from "./test-series/context/UserAuthContext";
 import PublicSeriesPage from "./test-series/pages/PublicSeriesPage";
@@ -63,6 +64,7 @@ export default function App() {
                 <Route path="/village-schemes/:id" element={<SchemeDetailPage />} />
                 <Route path="/news" element={<NewsPage />} />
                 <Route path="/news/:id" element={<NewsDetailPage />} />
+                <Route path="/important-updates" element={<ImportantUpdatesPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/test-series" element={<PublicSeriesPage />} />
               </Routes>

@@ -64,6 +64,11 @@ const governmentJobSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    isImportantUpdate: {
+      type: Boolean,
+      default: false,
+      set: v => v === 'on' ? true : v,
+    },
   },
   { timestamps: true, suppressReservedKeysWarning: true }
 );

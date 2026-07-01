@@ -3,7 +3,7 @@ import { getAdminStudyMaterials, createStudyMaterial, updateStudyMaterial, delet
 import { Edit, Trash2, Plus, Power, X, FileText } from 'lucide-react';
 
 const EMPTY_FORM = {
-  title: '', subject: '', category: 'Previous Paper', description: '', isActive: true,
+  title: '', subject: '', category: 'Previous Paper', description: '', isActive: true, isImportantUpdate: false,
 };
 
 export default function StudyMaterialAdmin() {
@@ -62,6 +62,7 @@ export default function StudyMaterialAdmin() {
     formData.append('category', form.category);
     formData.append('description', form.description || '');
     formData.append('isActive', form.isActive);
+    formData.append('isImportantUpdate', form.isImportantUpdate || false);
     formData.append('type', 'PDF'); // Always PDF
     
     if (file) {
@@ -176,9 +177,15 @@ export default function StudyMaterialAdmin() {
                   )}
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', gridColumn: '1/-1' }}>
-                  <input type="checkbox" name="isActive" id="isActive" checked={form.isActive} onChange={handleChange} />
-                  <label htmlFor="isActive" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Active (Visible to users)</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', gridColumn: '1/-1' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isActive" id="isActive" checked={form.isActive} onChange={handleChange} />
+                    <label htmlFor="isActive" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Active (Visible to users)</label>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isImportantUpdate" id="smIsImportant" checked={form.isImportantUpdate || false} onChange={handleChange} />
+                    <label htmlFor="smIsImportant" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Important Update</label>
+                  </div>
                 </div>
               </div>
               

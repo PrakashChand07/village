@@ -4,7 +4,7 @@ import { Edit, Trash2, Plus, Power, X } from 'lucide-react';
 
 const EMPTY_FORM = {
   title: '', organization: '', date: '', status: 'Awaited',
-  category: 'Board', resultLink: '', downloadLink: '', isNewPost: true,
+  category: 'Board', resultLink: '', downloadLink: '', isNewPost: true, isImportantUpdate: false,
 };
 const STATUSES = ['Declared', 'Awaited', 'Expected Soon'];
 
@@ -163,9 +163,15 @@ export default function ResultsList() {
                   <label className="form-label">Download Link</label>
                   <input className="form-input" name="downloadLink" value={form.downloadLink} onChange={handleChange} placeholder="https://..." />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <input type="checkbox" name="isNewPost" id="rIsNew" checked={form.isNewPost} onChange={handleChange} />
-                  <label htmlFor="rIsNew" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', gridColumn: '1/-1' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isNewPost" id="rIsNew" checked={form.isNewPost} onChange={handleChange} />
+                    <label htmlFor="rIsNew" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isImportantUpdate" id="rIsImportant" checked={form.isImportantUpdate || false} onChange={handleChange} />
+                    <label htmlFor="rIsImportant" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Important Update</label>
+                  </div>
                 </div>
               </div>
               <button type="submit" className="btn-primary" style={{ marginTop: '1.5rem' }} disabled={saving}>

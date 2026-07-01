@@ -4,7 +4,7 @@ import { Edit, Trash2, Plus, Power, X, Type, Link, Minus, Heading } from 'lucide
 
 const EMPTY_FORM = {
   title: '', description: '', benefit: '', eligibility: '',
-  category: '', applyLink: '',
+  category: '', applyLink: '', isImportantUpdate: false,
   blocks: [],
 };
 
@@ -46,8 +46,8 @@ export default function SchemesList() {
   const closeModal = () => { setShowModal(false); setError(''); };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm(f => ({ ...f, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setForm(f => ({ ...f, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -148,6 +148,10 @@ export default function SchemesList() {
               <div className="form-group">
                 <label className="form-label">Apply Link</label>
                 <input className="form-input" name="applyLink" value={form.applyLink} onChange={handleChange} placeholder="https://..." />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
+                <input type="checkbox" name="isImportantUpdate" id="scIsImportant" checked={form.isImportantUpdate || false} onChange={handleChange} />
+                <label htmlFor="scIsImportant" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Important Update</label>
               </div>
 
               {/* Block Builder */}

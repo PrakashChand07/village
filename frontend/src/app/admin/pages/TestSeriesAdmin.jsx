@@ -13,7 +13,7 @@ const headers = () => ({
 const CATEGORIES = ['SSC', 'Banking', 'UPSC', 'Railway', 'State PCS', 'Police', 'Defence', 'Other'];
 const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
-const emptyForm = { title: '', description: '', category: 'SSC', difficulty: 'Medium', price: 499, discountPrice: '', isFree: false, isActive: true };
+const emptyForm = { title: '', description: '', category: 'SSC', difficulty: 'Medium', price: 499, discountPrice: '', isFree: false, isActive: true, isImportantUpdate: false };
 
 export default function TestSeriesAdmin() {
   const [series, setSeries] = useState([]);
@@ -154,6 +154,12 @@ export default function TestSeriesAdmin() {
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                     <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} />
                     Active (visible to students)
+                  </label>
+                </div>
+                <div className="admin-form-group">
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={form.isImportantUpdate || false} onChange={e => setForm(f => ({ ...f, isImportantUpdate: e.target.checked }))} />
+                    Important Update
                   </label>
                 </div>
               </div>

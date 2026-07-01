@@ -4,7 +4,7 @@ import { Edit, Trash2, Plus, Power, X, Type, Link, Minus, Heading } from 'lucide
 
 const EMPTY_FORM = {
   title: '', organization: '', posts: '', lastDate: '', location: '',
-  category: '', salary: '', qualification: '', applyLink: '', isNewPost: true,
+  category: '', salary: '', qualification: '', applyLink: '', isNewPost: true, isImportantUpdate: false,
   blocks: [],
 };
 
@@ -164,9 +164,15 @@ export default function JobsList() {
                   <label className="form-label">Apply Link</label>
                   <input className="form-input" name="applyLink" value={form.applyLink} onChange={handleChange} placeholder="https://..." />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <input type="checkbox" name="isNewPost" id="jIsNew" checked={form.isNewPost} onChange={handleChange} />
-                  <label htmlFor="jIsNew" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', gridColumn: '1/-1' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isNewPost" id="jIsNew" checked={form.isNewPost} onChange={handleChange} />
+                    <label htmlFor="jIsNew" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isImportantUpdate" id="jIsImportant" checked={form.isImportantUpdate || false} onChange={handleChange} />
+                    <label htmlFor="jIsImportant" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Important Update</label>
+                  </div>
                 </div>
               </div>
 

@@ -70,3 +70,9 @@ export const fetchStudyMaterials = async (params = {}) => {
   const response = await fetch(`${API_URL}/study-materials?${query}`);
   return response.json();
 };
+
+export const fetchImportantUpdates = async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const response = await fetch(`${API_URL}/important-updates?${query}`);
+  return response.json();
+};

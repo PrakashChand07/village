@@ -3,7 +3,7 @@ import { getAdminNews, createNews, updateNews, deleteNews, toggleNews, getAdminC
 import { Edit, Trash2, Plus, Power, X, ChevronLeft, ChevronRight, Type, Link, Minus, Heading } from 'lucide-react';
 
 const EMPTY_FORM = {
-  title: '', content: '', category: '', source: '', date: '', isNewPost: true,
+  title: '', content: '', category: '', source: '', date: '', isNewPost: true, isImportantUpdate: false,
   blocks: [],
 };
 
@@ -174,9 +174,15 @@ export default function NewsList() {
                   <label className="form-label">Summary / Intro *</label>
                   <textarea className="form-input" name="content" value={form.content} onChange={handleChange} required rows={3} placeholder="Brief summary shown in news list..." style={{ resize: 'vertical' }} />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <input type="checkbox" name="isNewPost" id="isNewPost" checked={form.isNewPost} onChange={handleChange} />
-                  <label htmlFor="isNewPost" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', gridColumn: '1/-1' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isNewPost" id="isNewPost" checked={form.isNewPost} onChange={handleChange} />
+                    <label htmlFor="isNewPost" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Mark as NEW</label>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isImportantUpdate" id="nIsImportant" checked={form.isImportantUpdate || false} onChange={handleChange} />
+                    <label htmlFor="nIsImportant" style={{ fontWeight: 500, fontSize: '0.9rem' }}>Important Update</label>
+                  </div>
                 </div>
               </div>
 

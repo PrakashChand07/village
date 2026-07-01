@@ -113,7 +113,7 @@ const getAllMaterials = async (req, res) => {
 // @access  Private
 const createMaterial = async (req, res) => {
   try {
-    const { title, subject, category, type, description, isActive } = req.body;
+    const { title, subject, category, type, description, isActive, isImportantUpdate } = req.body;
     
     let fileUrl = '';
     let fileSize = '0 MB';
@@ -131,6 +131,7 @@ const createMaterial = async (req, res) => {
       type,
       description,
       isActive: isActive === 'true' || isActive === true,
+      isImportantUpdate: isImportantUpdate === 'true' || isImportantUpdate === true,
       fileUrl,
       fileSize,
       downloads: 0
@@ -154,7 +155,7 @@ const updateMaterial = async (req, res) => {
     const material = await StudyMaterial.findById(req.params.id);
     if (!material) return res.status(404).json({ success: false, message: 'Material not found' });
 
-    const { title, subject, category, type, description, isActive } = req.body;
+    const { title, subject, category, type, description, isActive, isImportantUpdate } = req.body;
 
     let fileUrl = material.fileUrl;
     let fileSize = material.fileSize;
@@ -181,6 +182,10 @@ const updateMaterial = async (req, res) => {
     
     if (isActive !== undefined) {
       material.isActive = isActive === 'true' || isActive === true;
+    }
+
+    if (isImportantUpdate !== undefined) {
+      material.isImportantUpdate = isImportantUpdate === 'true' || isImportantUpdate === true;
     }
     
     material.fileUrl = fileUrl;

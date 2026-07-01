@@ -45,7 +45,7 @@ const getTestSeriesById = async (req, res) => {
 // @route   POST /api/test-series
 const createTestSeries = async (req, res) => {
   try {
-    const { title, description, category, difficulty, price, discountPrice, isFree, image } = req.body;
+    const { title, description, category, difficulty, price, discountPrice, isFree, image, isImportantUpdate } = req.body;
     const series = await TestSeries.create({
       title, description, category, difficulty,
       price: price !== undefined ? price : 499,
@@ -53,6 +53,7 @@ const createTestSeries = async (req, res) => {
       isFree: isFree || price === 0,
       image: image || '',
       createdBy: req.admin._id,
+      isImportantUpdate: isImportantUpdate || false,
     });
     res.status(201).json({ success: true, message: 'Test series created', data: series });
   } catch (error) {
