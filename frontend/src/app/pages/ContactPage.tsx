@@ -47,7 +47,7 @@ export function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      details: ["+91 1800-XXX-XXXX", "Mon-Sat, 9 AM - 6 PM"],
+      details: ["+91 8789015932", "Mon-Sat, 9 AM - 6 PM"],
       color: "from-blue-500 to-blue-600",
     },
     {
@@ -59,7 +59,7 @@ export function ContactPage() {
     {
       icon: MapPin,
       title: "Address",
-      details: ["Patna, Bihar, India", "PIN: 800001"],
+      details: ["Ghorasahan East Champaran", "Bihar, India"],
       color: "from-orange-500 to-orange-600",
     },
   ];

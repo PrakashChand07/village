@@ -7,7 +7,7 @@ export function TopHeader() {
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4" />
-            <span>Bihar, India</span>
+            <span>Ghorasahan East Champaran, Bihar</span>
           </div>
           <div className="flex items-center gap-2">
             <Mail className="w-4 h-4" />
