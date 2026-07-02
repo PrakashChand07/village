@@ -83,7 +83,7 @@ export default function Dashboard() {
             <Home />
           </div>
           <div className="stat-info">
-            <h3>Village Schemes</h3>
+            <h3>Sarkari Yojna</h3>
             <p>{stats.schemes}</p>
           </div>
         </div>

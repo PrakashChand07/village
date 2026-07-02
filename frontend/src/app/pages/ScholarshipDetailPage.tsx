@@ -85,8 +85,8 @@ export function ScholarshipDetailPage() {
         </button>
 
         {/* Header Card */}
-        <div className="bg-gradient-to-br from-purple-600 to-violet-700 text-white rounded-3xl p-8 mb-8 shadow-xl shadow-purple-100">
-          <div className="flex items-start gap-4 mb-6">
+        <div className="bg-gradient-to-br from-purple-600 to-violet-700 text-white rounded-3xl md:p-8 p-4 mb-4 md:mb-8 shadow-xl shadow-purple-100">
+          <div className="flex items-start gap-4 md:mb-6 ">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center flex-shrink-0">
               <GraduationCap className="w-7 h-7 text-white" />
             </div>
@@ -99,14 +99,14 @@ export function ScholarshipDetailPage() {
                   <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold leading-tight">{scholarship.title}</h1>
-              <p className="text-white/80 mt-1 text-lg font-medium">by {scholarship.provider}</p>
+              <h1 className="text-xl sm:text-3xl font-bold leading-tight">{scholarship.title}</h1>
+              <p className="text-white/80 mt-1 text-sm font-medium">by {scholarship.provider}</p>
             </div>
           </div>
         </div>
 
         {/* Quick Info Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-4  mb-4 sm:mb-8 ">
           {[
             { icon: <Banknote className="w-5 h-5 text-purple-500" />, label: "Amount", value: scholarship.amount },
             { icon: <Calendar className="w-5 h-5 text-red-500" />, label: "Deadline", value: scholarship.deadline },

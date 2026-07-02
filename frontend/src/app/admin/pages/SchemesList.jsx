@@ -73,7 +73,7 @@ export default function SchemesList() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">Manage Village Schemes</h1>
+        <h1 className="page-title">Manage Sarkari Yojna</h1>
         <button onClick={openAdd} className="btn-primary" style={{ width: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <Plus size={18} /> Add New Scheme
         </button>

@@ -70,15 +70,15 @@ export function StudyMaterialPage() {
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-3xl p-8 mb-8">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-3xl md:p-8 p-4 mb-4 md:mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
                 <BookOpen className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-4xl font-bold">Study Material</h1>
-                <p className="text-white/90 mt-2">Free notes, papers & mock tests</p>
+                <h1 className="text-xl md:text-4xl font-bold">Study Material</h1>
+                <p className="text-white/90 mt-2 text-sm md:text-xl">Free notes, papers & mock tests</p>
               </div>
             </div>
             

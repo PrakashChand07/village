@@ -39,7 +39,7 @@ export default function Sidebar() {
           <BookOpen className="nav-icon" /> Study Material
         </NavLink>
         <NavLink to="/admin/schemes" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-          <Home className="nav-icon" /> Village Schemes
+          <Home className="nav-icon" /> Sarkari Yojna
         </NavLink>
         <NavLink to="/admin/news" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <Newspaper className="nav-icon" /> News

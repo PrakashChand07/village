@@ -82,8 +82,8 @@ export function NewsDetailPage() {
         </button>
 
         {/* Header Card */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-3xl p-8 mb-8 shadow-xl shadow-blue-200">
-          <div className="flex items-start gap-4 mb-6">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-3xl md:p-8 p-4 mb-4 md:mb-8 shadow-xl shadow-blue-200">
+          <div className="flex items-start gap-4 md:mb-6">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center flex-shrink-0">
               <Newspaper className="w-7 h-7 text-white" />
             </div>
@@ -96,7 +96,7 @@ export function NewsDetailPage() {
                   <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold leading-tight">{news.title}</h1>
+              <h1 className="text-xl sm:text-3xl font-bold leading-tight">{news.title}</h1>
             </div>
           </div>
 
@@ -116,7 +116,7 @@ export function NewsDetailPage() {
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
 
           {/* Summary / Intro */}
-          <div className="p-8 border-b border-gray-100">
+          <div className="md:p-8 p-4 border-b border-gray-100">
             <h2 className="text-sm font-bold text-blue-600 uppercase tracking-wider mb-3">Summary</h2>
             <p className="text-gray-700 text-lg leading-relaxed">{news.content}</p>
           </div>

@@ -14,7 +14,7 @@ export function Footer() {
       "Scholarship",
       "Study Material",
       // "Farming Help",
-      "Village Schemes",
+      "Sarkari Yojna",
     ],
     quickLinks: [
       "Results",

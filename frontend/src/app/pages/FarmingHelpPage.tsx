@@ -70,16 +70,16 @@ export function FarmingHelpPage() {
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white rounded-3xl p-8 mb-8">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white rounded-3xl md:p-8 p-4 mb-4 md:mb-8">
+          <div className="flex items-center gap-4">
             <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
               <Tractor className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold" style={{ fontFamily: 'Mukta, sans-serif' }}>
+              <h1 className="text-xl md:text-4xl font-bold" style={{ fontFamily: 'Mukta, sans-serif' }}>
                 किसान सहायता
               </h1>
-              <p className="text-white/90 mt-2">Farming assistance & agricultural support</p>
+              <p className="text-white/90 mt-2 text-sm md:text-xl">Farming assistance & agricultural support</p>
             </div>
           </div>
         </div>

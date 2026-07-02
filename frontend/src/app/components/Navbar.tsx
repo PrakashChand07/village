@@ -20,7 +20,7 @@ export function Navbar() {
     { label: "Test Series", path: "/test-series" },
     { label: "Study Material", path: "/study-material" },
     // { label: "Farming Help", path: "/farming-help" },
-    { label: "Village Schemes", path: "/village-schemes" },
+    { label: "Sarkari Yojna", path: "/village-schemes" },
     { label: "News", path: "/news" },
     { label: "Contact", path: "/contact" }
   ];
@@ -36,7 +36,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 py-3">
         <div className="flex justify-between items-center gap-4">
           <div className="flex items-center gap-4">
-            <button 
+            <button
               className="lg:hidden p-2 hover:bg-gray-100 rounded-full"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -46,8 +46,8 @@ export function Navbar() {
               <div className="flex items-center gap-2">
                 <div>
                   <div className="w-16 h-16 md:w-24 md:h-24 rounded-lg overflow-hidden flex items-center justify-center">
-                  <img src="/image/logo.jpeg" alt="Village Help Logo" className="w-full h-full object-cover" />
-                </div>
+                    <img src="/image/logo.jpeg" alt="Village Help Logo" className="w-full h-full object-cover" />
+                  </div>
                 </div>
               </div>
             </Link>
@@ -58,13 +58,12 @@ export function Navbar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-2 xl:px-3 py-2 rounded-lg transition-all relative text-sm xl:text-base ${
-                  location.pathname === item.path
+                className={`px-2 xl:px-3 py-2 rounded-lg transition-all relative text-sm xl:text-base ${location.pathname === item.path
                     ? "bg-[#6DBE45] text-white"
                     : item.highlight
-                    ? "bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white font-semibold shadow-sm hover:shadow-md"
-                    : "text-gray-700 hover:text-[#6DBE45]"
-                }`}
+                      ? "bg-gradient-to-r from-[#6DBE45] to-[#2D7A1F] text-white font-semibold shadow-sm hover:shadow-md"
+                      : "text-gray-700 hover:text-[#6DBE45]"
+                  }`}
               >
                 {item.label}
               </Link>
@@ -78,10 +77,10 @@ export function Navbar() {
             >
               <Search className="w-5 h-5 text-gray-600" />
             </button>
-            
+
             {isAuthenticated ? (
               <div className="relative">
-                <button 
+                <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-full transition-colors text-sm font-medium"
                 >
@@ -94,14 +93,14 @@ export function Navbar() {
 
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
-                    <Link 
-                      to="/test-series/dashboard" 
+                    <Link
+                      to="/test-series/dashboard"
                       onClick={() => setDropdownOpen(false)}
                       className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#2D7A1F]"
                     >
                       <LayoutDashboard className="w-4 h-4" /> My Dashboard
                     </Link>
-                    <button 
+                    <button
                       onClick={() => { logout(); setDropdownOpen(false); navigate('/'); }}
                       className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left"
                     >
@@ -130,11 +129,10 @@ export function Navbar() {
                   key={item.path}
                   to={item.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg transition-all ${
-                    location.pathname === item.path
+                  className={`px-4 py-3 rounded-lg transition-all ${location.pathname === item.path
                       ? "bg-[#6DBE45] text-white"
                       : "text-gray-700 hover:bg-gray-100"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>

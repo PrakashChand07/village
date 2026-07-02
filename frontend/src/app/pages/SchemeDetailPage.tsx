@@ -81,12 +81,12 @@ export function SchemeDetailPage() {
           className="flex items-center gap-2 text-green-700 font-semibold hover:text-green-900 transition-colors mb-6 group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Back to Village Schemes
+          Back to Sarkari Yojna
         </button>
 
         {/* Header Card */}
-        <div className="bg-gradient-to-br from-green-600 to-teal-700 text-white rounded-3xl p-8 mb-8 shadow-xl shadow-green-100">
-          <div className="flex items-start gap-4 mb-6">
+        <div className="bg-gradient-to-br from-green-600 to-teal-700 text-white rounded-3xl md:p-8 p-4 mb-4 md:mb-8 shadow-xl shadow-green-100">
+          <div className="flex items-start gap-4 md:mb-6">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center flex-shrink-0">
               <Leaf className="w-7 h-7 text-white" />
             </div>
@@ -96,14 +96,14 @@ export function SchemeDetailPage() {
                   <Tag className="w-3 h-3" /> {scheme.category}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold leading-tight">{scheme.title}</h1>
+              <h1 className="text-xl sm:text-3xl font-bold leading-tight">{scheme.title}</h1>
             </div>
           </div>
         </div>
 
         {/* Quick Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-start gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-8">
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start gap-3">
             <div className="w-9 h-9 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
               <Banknote className="w-5 h-5 text-green-600" />
             </div>
@@ -113,7 +113,7 @@ export function SchemeDetailPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-start gap-3">
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start gap-3">
             <div className="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
               <Users className="w-5 h-5 text-blue-600" />
             </div>
@@ -126,7 +126,7 @@ export function SchemeDetailPage() {
 
         {/* Description Card */}
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-8">
-          <div className="p-8 border-b border-gray-100">
+          <div className="md:p-8 p-4 border-b border-gray-100">
             <div className="flex items-center gap-2 mb-3">
               <Info className="w-4 h-4 text-green-600" />
               <h2 className="text-sm font-bold text-green-700 uppercase tracking-wider">About This Scheme</h2>

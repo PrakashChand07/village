@@ -66,21 +66,21 @@ export function ScholarshipPage() {
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-3xl p-8 mb-8">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-3xl md:p-8 p-4 mb-4 md:mb-8">
+          <div className="flex items-center gap-4">
             <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
               <GraduationCap className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold">Scholarship 2026</h1>
-              <p className="text-white/90 mt-2">Apply for educational scholarships & financial aid</p>
+              <h1 className="text-xl md:text-4xl font-bold">Scholarship </h1>
+              <p className="text-white/90 mt-2 text-sm md:text-xl">Apply for educational scholarships & financial aid</p>
             </div>
           </div>
         </div>
 
         {/* Search & Filters */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-6 md:mb-8 mb-4 ">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg md:p-6 p-2">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
@@ -93,8 +93,8 @@ export function ScholarshipPage() {
             </div>
           </div>
           
-          <div className="bg-white rounded-2xl shadow-lg p-6 overflow-x-auto">
-            <div className="flex gap-2 min-w-max pb-2">
+          <div className="bg-white rounded-2xl shadow-lg md:p-6 p-2 overflow-x-auto">
+            <div className="flex gap-2 min-w-max ">
               {categories.map((category) => (
                 <button
                   key={category}
