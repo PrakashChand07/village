@@ -48,6 +48,10 @@ export function GovernmentJobsPage() {
   }, [selectedCategory, searchQuery]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page, selectedCategory, searchQuery]);
+
+  useEffect(() => {
     const loadCategories = async () => {
       try {
         const response = await fetchCategories('job');

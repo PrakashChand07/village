@@ -27,10 +27,13 @@ import TestInstructionsPage from "./test-series/pages/TestInstructionsPage";
 import LiveTestPage from "./test-series/pages/LiveTestPage";
 import ResultPage from "./test-series/pages/ResultPage";
 import MyResultsPage from "./test-series/pages/MyResultsPage";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
+
       <UserAuthProvider>
         <Routes>
           {/* Admin Routes */}

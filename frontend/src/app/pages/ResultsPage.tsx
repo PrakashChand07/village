@@ -59,6 +59,10 @@ export function ResultsPage() {
     setPage(1);
   }, [searchQuery, selectedCategory]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page, selectedCategory, searchQuery]);
+
   return (
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">

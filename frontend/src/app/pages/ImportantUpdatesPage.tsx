@@ -61,6 +61,10 @@ export function ImportantUpdatesPage() {
     setPage(1);
   }, [selectedType, searchQuery]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page, selectedType, searchQuery]);
+
   const getIconForType = (type: string) => {
     switch (type) {
       case "job": return Briefcase;
@@ -235,7 +239,7 @@ export function ImportantUpdatesPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="font-bold text-gray-800 text-base md:text-lg group-hover:text-[#6DBE45] transition-colors leading-snug line-clamp-2">
+                      <h3 className="font-bold text-gray-800 text-base md:text-lg group-hover:text-[#6DBE45] transition-colors leading-snug">
                         {update.title}
                       </h3>
                       <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">

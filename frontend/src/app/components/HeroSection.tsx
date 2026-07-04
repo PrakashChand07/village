@@ -151,15 +151,15 @@ export function HeroSection() {
                           <div
                             key={update._id || index}
                             onClick={handleUpdateClick}
-                            className={`p-3.5 bg-gradient-to-r from-gray-50/50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-center justify-between gap-4 group border-l-4 ${theme.borderClass} ${theme.hoverClass}`}
+                            className={`p-3.5 bg-gradient-to-r from-gray-50/50 to-white rounded-xl hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-start md:items-center justify-between gap-4 group border-l-4 ${theme.borderClass} ${theme.hoverClass}`}
                           >
-                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                            <div className="flex items-start md:items-center gap-3 min-w-0 flex-1">
                               <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${theme.iconBgClass}`}>
                                 <Icon className={`w-4 h-4 ${theme.iconColorClass}`} />
                               </div>
                               <div className="min-w-0 flex-1">
-                                <div className="flex items-center gap-2">
-                                  <p className="text-sm font-semibold text-gray-800 line-clamp-1 group-hover:text-gray-900 transition-colors">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900 transition-colors">
                                     {update.title}
                                   </p>
                                   <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-gray-100 text-gray-600 uppercase">

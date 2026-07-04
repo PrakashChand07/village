@@ -76,6 +76,10 @@ export function VillageSchemes() {
     setPage(1);
   }, [selectedCategory, searchQuery]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page, selectedCategory, searchQuery]);
+
   return (
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">

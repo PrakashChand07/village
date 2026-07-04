@@ -23,6 +23,10 @@ export function StudyMaterialPage() {
     return () => clearTimeout(delayDebounceFn);
   }, [activeCategory, searchQuery]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeCategory, searchQuery]);
+
   const loadMaterials = async () => {
     setLoading(true);
     try {
@@ -44,7 +48,7 @@ export function StudyMaterialPage() {
     }
   };
 
-  const getIconForCategory = (category) => {
+  const getIconForCategory = (category:any) => {
     switch(category) {
       case 'Previous Paper': return FileText;
       case 'Mock Test Paper': return PenTool;
@@ -53,7 +57,7 @@ export function StudyMaterialPage() {
     }
   };
 
-  const getColorForCategory = (category) => {
+  const getColorForCategory = (category :any) => {
     switch(category) {
       case 'Previous Paper': return "from-blue-500 to-blue-600";
       case 'Mock Test Paper': return "from-purple-500 to-purple-600";
@@ -62,7 +66,7 @@ export function StudyMaterialPage() {
     }
   };
 
-  const handleDownload = (id) => {
+  const handleDownload = (id :any) => {
     window.location.href = `${API_URL}/study-materials/${id}/download`;
   };
 
