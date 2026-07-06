@@ -88,4 +88,11 @@ export const updateStudyMaterial = (id : any, data : any) => api.put(`/study-mat
 export const deleteStudyMaterial = (id : any) => api.delete(`/study-materials/admin/${id}`);
 export const toggleStudyMaterial = (id : any) => api.patch(`/study-materials/admin/${id}/toggle`);
 
+// Users
+export const getAdminUsers = () => api.get('/auth/users');
+export const toggleUserStatus = (id: any) => api.put(`/auth/users/${id}/toggle-status`);
+
+// Purchases
+export const getAdminPurchases = () => api.get('/auth/purchases');
+
 export default api;

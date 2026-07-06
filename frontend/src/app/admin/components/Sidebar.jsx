@@ -10,7 +10,9 @@ import {
   Newspaper,
   Mail,
   LogOut,
-  BookOpen
+  BookOpen,
+  Users,
+  CreditCard
 } from 'lucide-react';
 
 export default function Sidebar() {
@@ -55,6 +57,15 @@ export default function Sidebar() {
         </div>
         <NavLink to="/admin/test-series" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
           <BookOpen className="nav-icon" /> Test Series
+        </NavLink>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', margin: '8px 0', padding: '4px 0' }}>
+          <div style={{ padding: '4px 12px', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', color: 'rgba(255,255,255,0.5)' }}>User Management</div>
+        </div>
+        <NavLink to="/admin/users" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Users className="nav-icon" /> Registered Users
+        </NavLink>
+        <NavLink to="/admin/purchases" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <CreditCard className="nav-icon" /> Purchases & Payments
         </NavLink>
       </nav>
 

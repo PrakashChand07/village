@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
+const User = require('../models/User');
+const Purchase = require('../models/Purchase');
+const TestSeries = require('../models/TestSeries');
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -110,4 +113,48 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getMe, changePassword };
+// @desc    Get all registered users
+// @route   GET /api/auth/users
+// @access  Private (Admin)
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select('-password').sort({ createdAt: -1 });
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+// @desc    Toggle user active/deactive status
+// @route   PUT /api/auth/users/:id/toggle-status
+// @access  Private (Admin)
+const toggleUserStatus = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    user.isActive = !user.isActive;
+    await user.save();
+    res.status(200).json({ success: true, message: `User status updated to ${user.isActive ? 'active' : 'inactive'}`, data: user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+// @desc    Get all test series purchases
+// @route   GET /api/auth/purchases
+// @access  Private (Admin)
+const getAllPurchases = async (req, res) => {
+  try {
+    const purchases = await Purchase.find({})
+      .populate('user', 'name email phone')
+      .populate('testSeries', 'title price discountPrice')
+      .sort({ createdAt: -1 });
+    res.status(200).json({ success: true, data: purchases });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+module.exports = { register, login, getMe, changePassword, getAllUsers, toggleUserStatus, getAllPurchases };

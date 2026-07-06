@@ -15,6 +15,8 @@ import StudyMaterialAdmin from './pages/StudyMaterialAdmin';
 import TestSeriesAdmin from './pages/TestSeriesAdmin';
 import TestsAdmin from './pages/TestsAdmin';
 import QuestionsAdmin from './pages/QuestionsAdmin';
+import UsersList from './pages/UsersList';
+import PurchasesList from './pages/PurchasesList';
 import './admin.css';
 
 export default function AdminApp() {
@@ -42,6 +44,10 @@ export default function AdminApp() {
             <Route path="test-series" element={<TestSeriesAdmin />} />
             <Route path="test-series/:seriesId/tests" element={<TestsAdmin />} />
             <Route path="test-series/:seriesId/tests/:testId/questions" element={<QuestionsAdmin />} />
+
+            {/* User & Purchase Routes */}
+            <Route path="users" element={<UsersList />} />
+            <Route path="purchases" element={<PurchasesList />} />
           </Route>
         </Routes>
       </AuthProvider>
